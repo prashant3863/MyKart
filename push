@@ -1,0 +1,20 @@
+#!/usr/local/bin/ruby
+
+force_env_variable = ENV['FORCE']
+
+def force_flag(force)
+  force === "true" ? '-f ' : nil
+end
+
+remotes_with_branches = [
+  "bitbucket master"
+]
+
+def git_push_force_command(force_env_variable)
+  "git push #{force_flag(force_env_variable)}"
+end
+
+push_commands = remotes_with_branches.map { |remote| remote.prepend(git_push_force_command(force_env_variable)) }
+
+exec(push_commands.join(' && '))
+
