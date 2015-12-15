@@ -1,11 +1,13 @@
 package com.example.chi6rag.mykart;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -18,8 +20,22 @@ public class MainActivity extends AppCompatActivity {
 
     public static String[] CATEGORIES = {
             "Men",
+            "T-shirt",
+            "Jackets and Blazers",
+            "Jeans",
             "Women",
-            "Kids"
+            "Tops",
+            "Gowns",
+            "Jeans"
+    };
+
+    public static Product[] PRODUCTS = {
+            new Product("Skinny-Fit Big Pony Polo", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops"),
+            new Product("Tweed & Faux Leather Tank", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops"),
+            new Product("Long-Sleeve Oxford Shirt", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops"),
+            new Product("Crisscross-Back Maxi Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns"),
+            new Product("Faux-Suede Trim Henley Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns"),
+            new Product("Cap-Sleeve Cutout-Neckline Sheath", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns")
     };
 
     @Override
@@ -50,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
         };
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerOptionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ProductsActivity.class);
+                intent.putExtra("category", CATEGORIES[position]);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

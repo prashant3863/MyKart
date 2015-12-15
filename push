@@ -7,7 +7,8 @@ def force_flag(force)
 end
 
 remotes_with_branches = [
-  "bitbucket master"
+  "bitbucket master",
+  "github master"
 ]
 
 def git_push_force_command(force_env_variable)
