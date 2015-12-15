@@ -11,11 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
-    private LayoutInflater layoutInflater;
+    static float density = 0;
     private ArrayList<Product> products;
 
     public ProductListAdapter(Activity context, ArrayList<Product> products) {
-        this.layoutInflater = context.getLayoutInflater();
+        density = context.getResources().getDisplayMetrics().density;
         this.products = products;
     }
 

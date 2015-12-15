@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "log_tag";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
