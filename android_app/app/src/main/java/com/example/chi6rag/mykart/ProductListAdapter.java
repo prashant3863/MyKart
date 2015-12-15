@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
+    private static final String RUPEES_SYMBOL = "Rs. ";
     static float density = 0;
     private ArrayList<Product> products;
 
@@ -43,7 +44,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product product = this.products.get(position);
         holder.productName.setText(product.name);
-        holder.productPrice.setText(String.valueOf(product.price));
+        holder.productPrice.setText(RUPEES_SYMBOL + String.valueOf(product.price));
         holder.productImage.setImageResource(product.imageResources[0]);
     }
 

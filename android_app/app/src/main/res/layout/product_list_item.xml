@@ -23,13 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         tools:text="Red Dress"
-        android:gravity="center" />
+        style="@style/product_list_item_name"/>
 
     <TextView
         android:id="@+id/product_list_item_price"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         tools:text="Rs. 9,999"
-        android:gravity="center" />
+        style="@style/product_list_item_price"/>
 
 </LinearLayout>
