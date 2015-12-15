@@ -1,51 +1,55 @@
 package com.example.chi6rag.mykart;
 
 import android.app.Activity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends BaseAdapter {
-    private LayoutInflater mLayoutInflator;
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
+    private LayoutInflater layoutInflater;
     private ArrayList<Product> products;
 
     public ProductListAdapter(Activity context, ArrayList<Product> products) {
-        this.mLayoutInflator = context.getLayoutInflater();
+        this.layoutInflater = context.getLayoutInflater();
         this.products = products;
     }
 
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+        protected ImageView productImage;
+        protected TextView productName;
+        protected TextView productPrice;
+
+        public ProductViewHolder(View itemView) {
+            super(itemView);
+            this.productImage = (ImageView) itemView.findViewById(R.id.product_list_item_image);
+            this.productName = (TextView) itemView.findViewById(R.id.product_list_item_name);
+            this.productPrice = (TextView) itemView.findViewById(R.id.product_list_item_price);
+        }
+    }
+
     @Override
-    public int getCount() {
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+        ProductViewHolder productViewHolder = new ProductViewHolder(view);
+        return productViewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ProductViewHolder holder, int position) {
+        Product product = this.products.get(position);
+        holder.productName.setText(product.name);
+        holder.productPrice.setText(String.valueOf(product.price));
+        holder.productImage.setImageResource(product.imageResources[0]);
+    }
+
+    @Override
+    public int getItemCount() {
         return products.size();
-    }
-
-    @Override
-    public Product getItem(int position) {
-        return products.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Product product = getItem(position);
-        View view;
-        if(convertView == null) {
-            view = mLayoutInflator.inflate(R.layout.product_list_item, parent, false);
-        }
-        else {
-            view = convertView;
-        }
-        TextView productListItemText = (TextView) view.findViewById(R.id.product_list_item_text);
-        productListItemText.setText(product.name);
-        return view;
     }
 }
 

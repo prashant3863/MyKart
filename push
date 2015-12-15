@@ -7,7 +7,6 @@ def force_flag(force)
 end
 
 remotes_with_branches = [
-  "bitbucket master",
   "github master"
 ]
 

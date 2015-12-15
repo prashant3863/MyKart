@@ -3,7 +3,8 @@ package com.example.chi6rag.mykart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,9 @@ public class ProductsActivity extends AppCompatActivity {
             }
         }
 
-        ListView productsList = (ListView) findViewById(R.id.products_list);
+        RecyclerView productsList = (RecyclerView) findViewById(R.id.products_list);
+        productsList.setLayoutManager(new GridLayoutManager(this, 2));
+
         ProductListAdapter productListAdapter = new ProductListAdapter(this, products);
         productsList.setAdapter(productListAdapter);
     }
