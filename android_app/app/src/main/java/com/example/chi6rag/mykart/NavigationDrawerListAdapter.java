@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflator;
-    private Activity mContext;
 
     public NavigationDrawerListAdapter(Activity context) {
-        this.mContext = context;
         this.mLayoutInflator = context.getLayoutInflater();
     }
 

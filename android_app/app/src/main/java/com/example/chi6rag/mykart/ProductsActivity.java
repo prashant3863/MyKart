@@ -1,15 +1,11 @@
 package com.example.chi6rag.mykart;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -35,14 +31,15 @@ public class ProductsActivity extends AppCompatActivity {
         RecyclerView productsList = (RecyclerView) findViewById(R.id.products_list);
         productsList.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ProductListAdapter productListAdapter = new ProductListAdapter(this, products);
+        ProductListAdapter productListAdapter = new ProductListAdapter(products);
         productsList.setAdapter(productListAdapter);
 
         productsList.addOnItemTouchListener(new ProductsListTouchListener(this,
                 new ProductsListTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d(LOG_TAG, String.valueOf(position));
+                String idTag = String.valueOf(view.getTag(R.id.product_id_tag));
+                Log.d(LOG_TAG, idTag);
             }
         }));
     }
