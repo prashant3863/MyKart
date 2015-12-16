@@ -2,3 +2,5 @@ ultrapush
 .gradle
 .idea
 android_app/local.properties
+android_app/build/
+android_app/.idea/
