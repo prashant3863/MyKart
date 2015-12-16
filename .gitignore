@@ -1,3 +1,4 @@
 ultrapush
 .gradle
 .idea
+android_app/local.properties
