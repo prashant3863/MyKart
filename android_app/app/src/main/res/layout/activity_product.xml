@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/product_view"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/skinny_fit_big_pony_polo_1" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/product_item_name"
+        tools:text="Skinny-Fit Big Pony Polo" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/product_item_price"
+        tools:text="Rs. 14,999" />
+
+</LinearLayout>

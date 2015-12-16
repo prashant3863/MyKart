@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
-
-    private static final String LOG_TAG = "chi6rag";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +35,10 @@ public class ProductsActivity extends AppCompatActivity {
                 new ProductsListTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String idTag = String.valueOf(view.getTag(R.id.product_id_tag));
-                Log.d(LOG_TAG, idTag);
+                int idTag = (int) view.getTag(R.id.product_id_tag);
+                Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+                intent.putExtra(Product.ID_TAG, idTag);
+                startActivity(intent);
             }
         }));
     }

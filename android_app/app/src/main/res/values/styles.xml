@@ -26,4 +26,16 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="product_item_name">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="product_item_price" parent="@style/product_item_name">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

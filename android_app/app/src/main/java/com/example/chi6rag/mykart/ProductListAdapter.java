@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
-    private static final String RUPEES_SYMBOL = "Rs. ";
     private ArrayList<Product> products;
 
     public ProductListAdapter(ArrayList<Product> products) {
@@ -27,7 +26,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
         Product product = this.products.get(position);
         holder.productView.setTag(R.id.product_id_tag, product.id);
         holder.productName.setText(product.name);
-        holder.productPrice.setText(RUPEES_SYMBOL + String.valueOf(product.price));
+        holder.productPrice.setText(product.formattedPrice());
         holder.productImage.setImageResource(product.imageResources[0]);
     }
 
