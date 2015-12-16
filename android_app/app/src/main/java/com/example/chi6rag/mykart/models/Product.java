@@ -1,4 +1,6 @@
-package com.example.chi6rag.mykart;
+package com.example.chi6rag.mykart.models;
+
+import com.example.chi6rag.mykart.R;
 
 public class Product {
     private static final String RUPEES_SYMBOL = "Rs. ";

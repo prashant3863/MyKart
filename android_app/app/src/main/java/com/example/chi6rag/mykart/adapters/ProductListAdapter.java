@@ -1,9 +1,13 @@
-package com.example.chi6rag.mykart;
+package com.example.chi6rag.mykart.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.chi6rag.mykart.ProductViewHolder;
+import com.example.chi6rag.mykart.R;
+import com.example.chi6rag.mykart.models.Product;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,12 @@
 package com.example.chi6rag.mykart;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.chi6rag.mykart.models.Product;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -29,8 +31,8 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private Product findById(int id) {
-        for(Product product : MainActivity.PRODUCTS) {
-            if(product.id == id)
+        for (Product product : MainActivity.PRODUCTS) {
+            if (product.id == id)
                 return product;
         }
         return null;

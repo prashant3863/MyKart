@@ -7,6 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.chi6rag.mykart.adapters.ProductListAdapter;
+import com.example.chi6rag.mykart.models.Product;
+
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
@@ -33,13 +36,13 @@ public class ProductsActivity extends AppCompatActivity {
 
         productsList.addOnItemTouchListener(new ProductsListTouchListener(this,
                 new ProductsListTouchListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                int idTag = (int) view.getTag(R.id.product_id_tag);
-                Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
-                intent.putExtra(Product.ID_TAG, idTag);
-                startActivity(intent);
-            }
-        }));
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        int idTag = (int) view.getTag(R.id.product_id_tag);
+                        Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+                        intent.putExtra(Product.ID_TAG, idTag);
+                        startActivity(intent);
+                    }
+                }));
     }
 }

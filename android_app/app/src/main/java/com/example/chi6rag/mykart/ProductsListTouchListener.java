@@ -27,15 +27,17 @@ class ProductsListTouchListener implements RecyclerView.OnItemTouchListener {
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         View childView = rv.findChildViewUnder(e.getX(), e.getY());
-        if((childView != null) && (mListener != null) && mGestureDetector.onTouchEvent(e)) {
+        if ((childView != null) && (mListener != null) && mGestureDetector.onTouchEvent(e)) {
             mListener.onItemClick(childView, rv.getChildAdapterPosition(childView));
         }
         return false;
     }
 
     @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {}
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+    }
 
     @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
 }

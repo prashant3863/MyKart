@@ -1,0 +1,53 @@
+package com.example.chi6rag.mykart.async_tasks;
+
+import android.os.AsyncTask;
+import android.widget.ListView;
+
+import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
+import com.example.chi6rag.mykart.models.Categories;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class FetchCategoriesTask extends AsyncTask<Void, Void, Categories> {
+    private static final String X_SPREE_TOKEN = "X-Spree-Token";
+    private static final String API_KEY = "2f6dbdf1e01566aab7073ee94f89f7c8f044f66569eee560";
+    final String HOST = "http://192.168.1.101";
+    final String PORT = ":3000/";
+    final String CATEGORIES_URL = HOST + PORT + "/api/taxonomies/";
+
+    private final ListView list;
+    private NavigationDrawerListAdapter adapter;
+
+    public FetchCategoriesTask(ListView list, NavigationDrawerListAdapter adapter) {
+        this.list = list;
+        this.adapter = adapter;
+    }
+
+    @Override
+    protected Categories doInBackground(Void... params) {
+        try {
+            HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(CATEGORIES_URL).openConnection();
+            httpURLConnection.setRequestProperty(X_SPREE_TOKEN, API_KEY);
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            Categories categories = new Gson().fromJson(bufferedReader, Categories.class);
+            return categories;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Categories categories) {
+        adapter.populateCategories(categories);
+        list.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+}

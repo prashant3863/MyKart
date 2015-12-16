@@ -1,33 +1,26 @@
 package com.example.chi6rag.mykart;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
+import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.models.Category;
+import com.example.chi6rag.mykart.models.Product;
+
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "chi6rag";
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ListView mNavigationDrawerOptionsList;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
-
-    public static String[] CATEGORIES = {
-            "Men",
-            "T-shirt",
-            "Jackets and Blazers",
-            "Jeans",
-            "Women",
-            "Tops",
-            "Gowns",
-            "Jeans"
-    };
 
     public static Product[] PRODUCTS = {
             new Product(1, "Skinny-Fit Big Pony Polo", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops",
@@ -53,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
         mNavigationDrawerOptionsList = (ListView) findViewById(R.id.navigation_drawer_options);
 
-        NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
-        mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
+        final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
+        new FetchCategoriesTask(mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -76,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerOptionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category category = navigationDrawerListAdapter.findCategoryByPosition(position);
+
                 Intent intent = new Intent(getApplicationContext(), ProductsActivity.class);
-                intent.putExtra("category", CATEGORIES[position]);
+                intent.putExtra("category", category.name);
                 startActivity(intent);
             }
         });
