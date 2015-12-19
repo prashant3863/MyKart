@@ -8,11 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.chi6rag.mykart.R;
-import com.example.chi6rag.mykart.models.Categories;
+import com.example.chi6rag.mykart.models.CategoriesResource;
 import com.example.chi6rag.mykart.models.Category;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
-    private Categories categories;
+    private CategoriesResource mCategoriesResource;
     private LayoutInflater mLayoutInflator;
 
     public NavigationDrawerListAdapter(Activity context) {
@@ -21,12 +21,12 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return categories.length();
+        return mCategoriesResource.length();
     }
 
     @Override
     public Category getItem(int position) {
-        Category category = categories.findByPosition(position);
+        Category category = mCategoriesResource.findByPosition(position);
         return category;
     }
 
@@ -52,11 +52,11 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
     }
 
     public Category findCategoryByPosition(int position) {
-        Category category = categories.findByPosition(position);
+        Category category = mCategoriesResource.findByPosition(position);
         return category;
     }
 
-    public void populateCategories(Categories categories) {
-        this.categories = categories;
+    public void populateCategories(CategoriesResource categoriesResource) {
+        this.mCategoriesResource = categoriesResource;
     }
 }

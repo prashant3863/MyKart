@@ -2,10 +2,10 @@ package com.example.chi6rag.mykart.models;
 
 import java.util.List;
 
-public class Categories {
+public class CategoriesResource {
     public List<Category> taxonomies;
 
-    public Categories(List<Category> taxonomies) {
+    public CategoriesResource(List<Category> taxonomies) {
         this.taxonomies = taxonomies;
     }
 
