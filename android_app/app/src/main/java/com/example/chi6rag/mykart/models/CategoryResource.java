@@ -7,10 +7,12 @@ public class CategoryResource implements Parcelable {
     public static String TAG = "category_tag";
     public final Integer id;
     public final String name;
+    public Category root;
 
-    CategoryResource(Integer id, String name) {
+    CategoryResource(Integer id, String name, Category root) {
         this.id = id;
         this.name = name;
+        this.root = root;
     }
 
 
