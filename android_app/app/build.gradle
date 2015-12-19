@@ -11,10 +11,28 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    def propFile = file("${System.properties['user.home']}/.keys/gradle.properties")
+    def props = new Properties()
+    if (propFile.exists()) {
+        propFile.withInputStream {
+            stream -> props.load(stream)
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file("${System.properties['user.home']}/.keys/bootcamp.jks")
+            storePassword props.getProperty('KEYSTORE_PASS')
+            keyAlias "com.example.chi6rag.mykart"
+            keyPassword props.getProperty('MYKART_PASS')
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
