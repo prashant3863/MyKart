@@ -3,14 +3,16 @@ package com.example.chi6rag.mykart.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Category implements Parcelable {
+public class CategoryResource implements Parcelable {
+    public static String TAG = "category_tag";
     public final Integer id;
     public final String name;
 
-    Category(Integer id, String name) {
+    CategoryResource(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
+
 
     @Override
     public int describeContents() {
@@ -23,18 +25,18 @@ public class Category implements Parcelable {
         dest.writeString(this.name);
     }
 
-    protected Category(Parcel in) {
+    protected CategoryResource(Parcel in) {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.name = in.readString();
     }
 
-    public static final Creator<Category> CREATOR = new Creator<Category>() {
-        public Category createFromParcel(Parcel source) {
-            return new Category(source);
+    public static final Creator<CategoryResource> CREATOR = new Creator<CategoryResource>() {
+        public CategoryResource createFromParcel(Parcel source) {
+            return new CategoryResource(source);
         }
 
-        public Category[] newArray(int size) {
-            return new Category[size];
+        public CategoryResource[] newArray(int size) {
+            return new CategoryResource[size];
         }
     };
 }

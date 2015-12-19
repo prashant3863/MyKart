@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
-import com.example.chi6rag.mykart.models.Category;
+import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.Product;
 
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
-
-    private static final String LOG_TAG = "chi6rag";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,11 +21,11 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products);
 
         Intent intent = getIntent();
-        Category category = intent.getParcelableExtra("category");
+        CategoryResource categoryResource = intent.getParcelableExtra(CategoryResource.TAG);
 
         ArrayList<Product> products = new ArrayList<>();
         for (Product product : MainActivity.PRODUCTS) {
-            if (product.category.equals(category.name)) {
+            if (product.category.equals(categoryResource.name)) {
                 products.add(product);
             }
         }

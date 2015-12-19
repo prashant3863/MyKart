@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.models.CategoriesResource;
-import com.example.chi6rag.mykart.models.Category;
+import com.example.chi6rag.mykart.models.CategoryResource;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
     private CategoriesResource mCategoriesResource;
@@ -25,8 +25,8 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Category getItem(int position) {
-        Category category = mCategoriesResource.findByPosition(position);
+    public CategoryResource getItem(int position) {
+        CategoryResource category = mCategoriesResource.findByPosition(position);
         return category;
     }
 
@@ -37,7 +37,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Category category = getItem(position);
+        CategoryResource category = getItem(position);
         View view;
         if (convertView == null) {
             view = mLayoutInflator.inflate(R.layout.navigation_drawer_list_element, parent, false);
@@ -47,13 +47,12 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
         TextView navDrawerListElementText = (TextView) view
                 .findViewById(R.id.navigation_drawer_list_element_text);
         navDrawerListElementText.setText(category.name);
-        // navDrawerListElementText.setTag(Category.CATEGORY_ID_TAG, category.id);
         return view;
     }
 
-    public Category findCategoryByPosition(int position) {
-        Category category = mCategoriesResource.findByPosition(position);
-        return category;
+    public CategoryResource findCategoryResourceByPosition(int position) {
+        CategoryResource categoryResource = mCategoriesResource.findByPosition(position);
+        return categoryResource;
     }
 
     public void populateCategories(CategoriesResource categoriesResource) {

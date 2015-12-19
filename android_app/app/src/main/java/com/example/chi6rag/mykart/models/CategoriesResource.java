@@ -3,9 +3,9 @@ package com.example.chi6rag.mykart.models;
 import java.util.List;
 
 public class CategoriesResource {
-    public List<Category> taxonomies;
+    public List<CategoryResource> taxonomies;
 
-    public CategoriesResource(List<Category> taxonomies) {
+    public CategoriesResource(List<CategoryResource> taxonomies) {
         this.taxonomies = taxonomies;
     }
 
@@ -13,7 +13,7 @@ public class CategoriesResource {
         return taxonomies.size();
     }
 
-    public Category findByPosition(int position) {
+    public CategoryResource findByPosition(int position) {
         return taxonomies.get(position);
     }
 }

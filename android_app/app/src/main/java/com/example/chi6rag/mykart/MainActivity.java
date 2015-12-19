@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerOptionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Category category = navigationDrawerListAdapter.findCategoryByPosition(position);
+                CategoryResource categoryResource = navigationDrawerListAdapter.findCategoryResourceByPosition(position);
 
                 Intent intent = new Intent(getApplicationContext(), ProductsActivity.class);
-                intent.putExtra("category", (Parcelable) category);
+                intent.putExtra(CategoryResource.TAG, categoryResource);
                 startActivity(intent);
             }
         });
