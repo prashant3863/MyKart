@@ -1,4 +1,4 @@
-package com.example.chi6rag.mykart;
+package com.example.chi6rag.mykart.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,7 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.chi6rag.mykart.R;
+import com.example.chi6rag.mykart.models.Categories;
+import com.example.chi6rag.mykart.models.Category;
+
 public class NavigationDrawerListAdapter extends BaseAdapter {
+    private Categories categories;
     private LayoutInflater mLayoutInflator;
 
     public NavigationDrawerListAdapter(Activity context) {
@@ -16,12 +21,13 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return MainActivity.CATEGORIES.length;
+        return categories.length();
     }
 
     @Override
-    public String getItem(int position) {
-        return MainActivity.CATEGORIES[position];
+    public Category getItem(int position) {
+        Category category = categories.findByPosition(position);
+        return category;
     }
 
     @Override
@@ -31,17 +37,26 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String category = getItem(position);
+        Category category = getItem(position);
         View view;
-        if(convertView == null) {
+        if (convertView == null) {
             view = mLayoutInflator.inflate(R.layout.navigation_drawer_list_element, parent, false);
-        }
-        else {
+        } else {
             view = convertView;
         }
         TextView navDrawerListElementText = (TextView) view
                 .findViewById(R.id.navigation_drawer_list_element_text);
-        navDrawerListElementText.setText(category);
+        navDrawerListElementText.setText(category.name);
+        // navDrawerListElementText.setTag(Category.CATEGORY_ID_TAG, category.id);
         return view;
+    }
+
+    public Category findCategoryByPosition(int position) {
+        Category category = categories.findByPosition(position);
+        return category;
+    }
+
+    public void populateCategories(Categories categories) {
+        this.categories = categories;
     }
 }

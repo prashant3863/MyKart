@@ -7,10 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder {
-    protected LinearLayout productView;
-    protected ImageView productImage;
-    protected TextView productName;
-    protected TextView productPrice;
+    public LinearLayout productView;
+    public ImageView productImage;
+    public TextView productName;
+    public TextView productPrice;
 
     public ProductViewHolder(View itemView) {
         super(itemView);

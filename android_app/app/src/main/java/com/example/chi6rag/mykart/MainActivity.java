@@ -1,46 +1,39 @@
 package com.example.chi6rag.mykart;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
+import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.models.*;
+
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "chi6rag";
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ListView mNavigationDrawerOptionsList;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
-    public static String[] CATEGORIES = {
-            "Men",
-            "T-shirt",
-            "Jackets and Blazers",
-            "Jeans",
-            "Women",
-            "Tops",
-            "Gowns",
-            "Jeans"
-    };
-
     public static Product[] PRODUCTS = {
-            new Product(1, "Skinny-Fit Big Pony Polo", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops",
+            new Product(1, "Skinny-Fit Big Pony Polo", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.skinny_fit_big_pony_polo_1, R.drawable.skinny_fit_big_pony_polo_2}),
-            new Product(2, "Tweed & Faux Leather Tank", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops",
+            new Product(2, "Tweed & Faux Leather Tank", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.tweed_faux_leather_tank_1, R.drawable.tweed_faux_leather_tank_2, R.drawable.tweed_faux_leather_tank_3}),
-            new Product(3, "Long-Sleeve Oxford Shirt", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Tops",
+            new Product(3, "Long-Sleeve Oxford Shirt", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.long_sleeve_oxford_shirt}),
-            new Product(4, "Crisscross-Back Maxi Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns",
+            new Product(4, "Crisscross-Back Maxi Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.crisscross_back_maxi_dress_1, R.drawable.crisscross_back_maxi_dress_2}),
-            new Product(5, "Faux-Suede Trim Henley Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns",
+            new Product(5, "Faux-Suede Trim Henley Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.faux_suede_trim_henley_dress_1, R.drawable.faux_suede_trim_henley_dress_2}),
-            new Product(6, "Cap-Sleeve Cutout-Neckline Sheath", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Gowns",
+            new Product(6, "Cap-Sleeve Cutout-Neckline Sheath", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
                     new int[]{R.drawable.cap_sleeve_cutout_neckline_sheath_1, R.drawable.cap_sleeve_cutout_neckline_sheath_2})
     };
 
@@ -53,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
         mNavigationDrawerOptionsList = (ListView) findViewById(R.id.navigation_drawer_options);
 
-        NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
-        mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
+        final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
+        new FetchCategoriesTask(mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -76,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerOptionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category category = navigationDrawerListAdapter.findCategoryByPosition(position);
+
                 Intent intent = new Intent(getApplicationContext(), ProductsActivity.class);
-                intent.putExtra("category", CATEGORIES[position]);
+                intent.putExtra("category", (Parcelable) category);
                 startActivity(intent);
             }
         });
