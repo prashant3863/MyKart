@@ -37,7 +37,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryResource category = getItem(position);
+        CategoryResource categoryResource = getItem(position);
         View view;
         if (convertView == null) {
             view = mLayoutInflator.inflate(R.layout.navigation_drawer_list_element, parent, false);
@@ -46,7 +46,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
         }
         TextView navDrawerListElementText = (TextView) view
                 .findViewById(R.id.navigation_drawer_list_element_text);
-        navDrawerListElementText.setText(category.name);
+        navDrawerListElementText.setText(categoryResource.name);
         return view;
     }
 

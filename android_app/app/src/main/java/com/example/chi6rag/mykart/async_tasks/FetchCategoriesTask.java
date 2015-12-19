@@ -1,7 +1,6 @@
 package com.example.chi6rag.mykart.async_tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
@@ -38,7 +37,6 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             CategoriesResource categoriesResource = new Gson().fromJson(bufferedReader, CategoriesResource.class);
-            Log.d("sudgf", "csldkafhj");
             return categoriesResource;
         } catch (IOException e) {
             e.printStackTrace();
