@@ -9,6 +9,9 @@ import android.widget.ListView;
 
 import com.example.chi6rag.mykart.adapters.ProductCategoriesListAdapter;
 import com.example.chi6rag.mykart.models.CategoryResource;
+import com.example.chi6rag.mykart.models.ProductCategory;
+
+import java.util.List;
 
 public class ProductCategoriesActivity extends AppCompatActivity {
 
@@ -20,13 +23,17 @@ public class ProductCategoriesActivity extends AppCompatActivity {
         final CategoryResource categoryResource = intent.getParcelableExtra(CategoryResource.TAG);
 
         final ListView productCategoriesList = (ListView) findViewById(R.id.product_categories_list);
-        productCategoriesList.setAdapter(new ProductCategoriesListAdapter(this, categoryResource.productCategories()));
+        final List<ProductCategory> productCategories = categoryResource.productCategories();
+
+        productCategoriesList.setAdapter(new ProductCategoriesListAdapter(this, productCategories));
 
         productCategoriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductCategory productCategory = productCategories.get(position);
+
                 Intent productsActivityIntent = new Intent(getApplicationContext(), ProductsActivity.class);
-                productsActivityIntent.putExtra(CategoryResource.TAG, categoryResource);
+                productsActivityIntent.putExtra(ProductCategory.TAG, productCategory);
                 startActivity(productsActivityIntent);
             }
         });

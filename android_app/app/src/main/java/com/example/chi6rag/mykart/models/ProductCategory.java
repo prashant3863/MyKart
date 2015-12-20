@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ProductCategory implements Parcelable {
+    public static final String TAG = "product_category";
     public Integer id;
     public String name;
 

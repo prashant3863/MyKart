@@ -1,11 +1,8 @@
 package com.example.chi6rag.mykart.async_tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ListView;
 
-import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
-import com.example.chi6rag.mykart.models.CategoriesResource;
+import com.example.chi6rag.mykart.adapters.ProductListAdapter;
 import com.example.chi6rag.mykart.models.ProductsResource;
 import com.google.gson.Gson;
 
@@ -20,9 +17,15 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     private static final String X_SPREE_TOKEN = "X-Spree-Token";
     private static final String API_KEY = "d7e0b9aac23ee67b4001bf9b330c8c53aab3db4501d34f98";
     private static final String ID_KEY = "?id=";
+    private ProductListAdapter adapter;
+
     final String HOST = "http://192.168.1.106";
     final String PORT = ":3000/";
     final String PRODUCTS_ENDPOINT = HOST + PORT + "/api/taxons/products";
+
+    public FetchProductsTask(ProductListAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     @Override
     protected ProductsResource doInBackground(Integer... productCategoryId) {
@@ -38,5 +41,11 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(ProductsResource productsResource) {
+        adapter.updateProducts(productsResource);
+        adapter.notifyDataSetChanged();
     }
 }

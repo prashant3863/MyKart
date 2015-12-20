@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
+import com.example.chi6rag.mykart.async_tasks.FetchProductsTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.Product;
+import com.example.chi6rag.mykart.models.ProductCategory;
 
 import java.util.ArrayList;
 
@@ -21,30 +23,13 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products);
 
         Intent intent = getIntent();
-        CategoryResource categoryResource = intent.getParcelableExtra(CategoryResource.TAG);
-
-        ArrayList<Product> products = new ArrayList<>();
-        for (Product product : MainActivity.PRODUCTS) {
-            if (product.category.equals(categoryResource.name)) {
-                products.add(product);
-            }
-        }
+        ProductCategory productCategory = intent.getParcelableExtra(ProductCategory.TAG);
 
         RecyclerView productsList = (RecyclerView) findViewById(R.id.products_list);
         productsList.setLayoutManager(new GridLayoutManager(this, 2));
-
-        ProductListAdapter productListAdapter = new ProductListAdapter(products);
+        ProductListAdapter productListAdapter = new ProductListAdapter();
         productsList.setAdapter(productListAdapter);
 
-        productsList.addOnItemTouchListener(new ProductsListTouchListener(this,
-                new ProductsListTouchListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        int idTag = (int) view.getTag(R.id.product_id_tag);
-                        Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
-                        intent.putExtra(Product.ID_TAG, idTag);
-                        startActivity(intent);
-                    }
-                }));
+        new FetchProductsTask(productListAdapter).execute(productCategory.id);
     }
 }
