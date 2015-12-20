@@ -10,6 +10,16 @@ class ProductsListTouchListener implements RecyclerView.OnItemTouchListener {
     private OnItemClickListener mListener;
     private GestureDetector mGestureDetector;
 
+    public ProductsListTouchListener(Context context, OnItemClickListener listener) {
+        this.mListener = listener;
+        this.mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+    }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }

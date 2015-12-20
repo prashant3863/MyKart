@@ -1,39 +1,37 @@
 package com.example.chi6rag.mykart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chi6rag.mykart.models.Product;
+import com.squareup.picasso.Picasso;
 
 public class ProductActivity extends AppCompatActivity {
-
-    private static final int DEFAULT_ID_VALUE = 0;
+    private String HOST;
+    private String PORT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        HOST = this.getString(R.string.host);
+        PORT = this.getString(R.string.port);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
-        Intent intent = getIntent();
-        int id = intent.getIntExtra(Product.ID_TAG, DEFAULT_ID_VALUE);
-        Product product = findById(id);
 
         ImageView productImage = (ImageView) findViewById(R.id.product_image);
         TextView productName = (TextView) findViewById(R.id.product_name);
         TextView productPrice = (TextView) findViewById(R.id.product_price);
 
+        Product product = getIntent().getParcelableExtra(Product.TAG);
+
         productName.setText(product.name);
         productPrice.setText(product.formattedPrice());
+
+        Picasso.with(this)
+                .load(HOST + PORT + product.firstImageResource().largeUrl)
+                .into(productImage);
     }
 
-    private Product findById(int id) {
-        for (Product product : MainActivity.PRODUCTS) {
-            if (product.id == id)
-                return product;
-        }
-        return null;
-    }
 }

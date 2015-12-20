@@ -51,4 +51,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
     public void updateProducts(ProductsResource productsResource) {
         this.products.addAll(productsResource);
     }
+
+    public Product findProductByPosition(int position) {
+        return this.products.get(position).product;
+    }
 }

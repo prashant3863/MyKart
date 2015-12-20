@@ -22,21 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private ListView mNavigationDrawerOptionsList;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
-    public static Product[] PRODUCTS = {
-            new Product(1, "Skinny-Fit Big Pony Polo", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.skinny_fit_big_pony_polo_1, R.drawable.skinny_fit_big_pony_polo_2}),
-            new Product(2, "Tweed & Faux Leather Tank", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.tweed_faux_leather_tank_1, R.drawable.tweed_faux_leather_tank_2, R.drawable.tweed_faux_leather_tank_3}),
-            new Product(3, "Long-Sleeve Oxford Shirt", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.long_sleeve_oxford_shirt}),
-            new Product(4, "Crisscross-Back Maxi Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.crisscross_back_maxi_dress_1, R.drawable.crisscross_back_maxi_dress_2}),
-            new Product(5, "Faux-Suede Trim Henley Dress", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.faux_suede_trim_henley_dress_1, R.drawable.faux_suede_trim_henley_dress_2}),
-            new Product(6, "Cap-Sleeve Cutout-Neckline Sheath", "Ribbed polo collar\nTwo-button placket\nLong sleeves with ribbed cuffs", 14990, "Women",
-                    new int[]{R.drawable.cap_sleeve_cutout_neckline_sheath_1, R.drawable.cap_sleeve_cutout_neckline_sheath_2})
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
