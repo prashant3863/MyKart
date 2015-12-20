@@ -1,7 +1,10 @@
 package com.example.chi6rag.mykart.async_tasks;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 
+import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
 import com.example.chi6rag.mykart.models.ProductsResource;
 import com.google.gson.Gson;
@@ -14,16 +17,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource> {
-    private static final String X_SPREE_TOKEN = "X-Spree-Token";
-    private static final String API_KEY = "d7e0b9aac23ee67b4001bf9b330c8c53aab3db4501d34f98";
-    private static final String ID_KEY = "?id=";
+    private final String HOST;
+    private final String PORT;
+    private final String PRODUCTS_ENDPOINT;
+    private final String X_SPREE_TOKEN;
+    private final String API_KEY;
+    private final String ID_KEY;
+
     private ProductListAdapter adapter;
 
-    final String HOST = "http://192.168.1.106";
-    final String PORT = ":3000/";
-    final String PRODUCTS_ENDPOINT = HOST + PORT + "/api/taxons/products";
+    public FetchProductsTask(Context context, ProductListAdapter adapter) {
+        Resources resources = context.getResources();
 
-    public FetchProductsTask(ProductListAdapter adapter) {
+        HOST = resources.getString(R.string.host);
+        PORT = resources.getString(R.string.port);
+        PRODUCTS_ENDPOINT = HOST + PORT + resources.getString(R.string.products_path);
+        API_KEY = resources.getString(R.string.default_api_key);
+        X_SPREE_TOKEN = resources.getString(R.string.x_spree_token);
+        ID_KEY = resources.getString(R.string.id_key);
+
         this.adapter = adapter;
     }
 

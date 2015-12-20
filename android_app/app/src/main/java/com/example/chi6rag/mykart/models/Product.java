@@ -25,10 +25,11 @@ public class Product {
         this.imageResources = imageResources;
     }
 
-    public int firstImageResource() {
-        if (imageResources.length > 0)
-            return imageResources[0];
-        return 0;
+    public Image firstImageResource() {
+        if (images.size() > 0) {
+            return images.get(0);
+        }
+        return null;
     }
 
     public String formattedPrice() {

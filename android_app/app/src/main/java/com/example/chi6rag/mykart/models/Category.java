@@ -11,12 +11,6 @@ public class Category implements Parcelable {
     public String name;
     public List<ProductCategory> taxons;
 
-    public Category(Integer id, String name, List<ProductCategory> taxons) {
-        this.id = id;
-        this.name = name;
-        this.taxons = taxons;
-    }
-
     @Override
     public int describeContents() {
         return 0;

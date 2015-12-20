@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
-import com.example.chi6rag.mykart.async_tasks.FetchProductsTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.Product;
 
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerOptionsList = (ListView) findViewById(R.id.navigation_drawer_options);
 
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
-        new FetchCategoriesTask(mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
+        new FetchCategoriesTask(this, mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {

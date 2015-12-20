@@ -14,16 +14,6 @@ class ProductsListTouchListener implements RecyclerView.OnItemTouchListener {
         void onItemClick(View view, int position);
     }
 
-    ProductsListTouchListener(Context context, OnItemClickListener listener) {
-        this.mListener = listener;
-        this.mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
-            }
-        });
-    }
-
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         View childView = rv.findChildViewUnder(e.getX(), e.getY());

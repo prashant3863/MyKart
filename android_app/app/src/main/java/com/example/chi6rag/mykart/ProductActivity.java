@@ -25,7 +25,6 @@ public class ProductActivity extends AppCompatActivity {
         TextView productName = (TextView) findViewById(R.id.product_name);
         TextView productPrice = (TextView) findViewById(R.id.product_price);
 
-        productImage.setImageResource(product.firstImageResource());
         productName.setText(product.name);
         productPrice.setText(product.formattedPrice());
     }

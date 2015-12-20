@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +9,19 @@ import android.view.ViewGroup;
 import com.example.chi6rag.mykart.ProductViewHolder;
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.models.Product;
-import com.example.chi6rag.mykart.models.ProductResource;
 import com.example.chi6rag.mykart.models.ProductsResource;
-
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
+    private final Context context;
     private ProductsResource products;
+    private final String HOST;
+    private final String PORT;
 
-    public ProductListAdapter() {
+    public ProductListAdapter(Context context) {
+        this.context = context;
+        HOST = context.getString(R.string.host);
+        PORT = context.getString(R.string.port).replace("/", "");
         this.products = new ProductsResource();
     }
 
@@ -33,6 +38,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
         holder.productView.setTag(R.id.product_id_tag, product.id);
         holder.productName.setText(product.name);
         holder.productPrice.setText(product.formattedPrice());
+        Picasso.with(context)
+                .load(HOST + PORT + product.firstImageResource().largeUrl)
+                .into(holder.productImage);
     }
 
     @Override

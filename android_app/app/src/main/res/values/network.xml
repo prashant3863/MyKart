@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="host" type="string">http://192.168.1.106</string>
+    <string name="products_path">/api/taxons/products</string>
+    <string name="port">:3000/</string>
+    <string name="taxonomies_path">/api/taxonomies/</string>
+    <string name="default_api_key">d7e0b9aac23ee67b4001bf9b330c8c53aab3db4501d34f98</string>
+    <string name="x_spree_token">X-Spree-Token</string>
+    <string name="id_key">\?id=</string>
+</resources>
