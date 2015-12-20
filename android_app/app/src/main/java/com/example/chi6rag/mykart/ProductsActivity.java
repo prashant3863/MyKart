@@ -27,7 +27,11 @@ public class ProductsActivity extends AppCompatActivity {
         final ProductListAdapter productListAdapter = new ProductListAdapter(this);
         productsList.setAdapter(productListAdapter);
 
-        new FetchProductsTask(this, productListAdapter).execute(productCategory.id);
+        new FetchProductsTask(this,
+                productListAdapter,
+                this.findViewById(R.id.products_progress_bar),
+                productsList)
+                .execute(productCategory.id);
 
         productsList.addOnItemTouchListener(new ProductsListTouchListener(this,
                 new ProductsListTouchListener.OnItemClickListener() {

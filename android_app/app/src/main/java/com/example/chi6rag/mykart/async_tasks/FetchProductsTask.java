@@ -3,6 +3,10 @@ package com.example.chi6rag.mykart.async_tasks;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
@@ -23,10 +27,13 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     private final String X_SPREE_TOKEN;
     private final String API_KEY;
     private final String ID_KEY;
+    private final ProgressBar progressBar;
+    private final RecyclerView productsList;
 
     private ProductListAdapter adapter;
 
-    public FetchProductsTask(Context context, ProductListAdapter adapter) {
+    public FetchProductsTask(Context context, ProductListAdapter adapter, View progressBar,
+                             View productsList) {
         Resources resources = context.getResources();
 
         HOST = resources.getString(R.string.host);
@@ -37,6 +44,13 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
         ID_KEY = resources.getString(R.string.id_key);
 
         this.adapter = adapter;
+        this.progressBar = (ProgressBar) progressBar;
+        this.productsList = (RecyclerView) productsList;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        progressBar.animate().start();
     }
 
     @Override
@@ -59,5 +73,7 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     protected void onPostExecute(ProductsResource productsResource) {
         adapter.updateProducts(productsResource);
         adapter.notifyDataSetChanged();
+        ((ViewGroup) progressBar.getParent()).removeView(progressBar);
+        this.productsList.setVisibility(RecyclerView.VISIBLE);
     }
 }
