@@ -40,6 +40,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
         holder.productPrice.setText(product.formattedPrice());
         Picasso.with(context)
                 .load(HOST + PORT + product.firstImageResource().largeUrl)
+                .placeholder(R.drawable.m_placeholder)
                 .into(holder.productImage);
     }
 
