@@ -31,7 +31,7 @@ public class ProductActivity extends AppCompatActivity {
 
         Picasso.with(this)
                 .load(HOST + PORT + product.firstImageResource().largeUrl)
-                .placeholder(R.drawable.m_placeholder)
+                .placeholder(R.drawable.m_placeholder_2)
                 .into(productImage);
     }
 
