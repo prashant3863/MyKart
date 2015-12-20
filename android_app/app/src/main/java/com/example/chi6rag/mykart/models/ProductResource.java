@@ -1,13 +1,19 @@
 package com.example.chi6rag.mykart.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ProductResource {
     public Integer id;
     public String name;
     public String description;
 
-    public ProductResource(Integer id, String name, String description) {
-        this.id = id;
-        this.name = name;
+    @SerializedName("master")
+    public Product product;
+
+    public ProductResource(Product product, String description, String name, Integer id) {
+        this.product = product;
         this.description = description;
+        this.name = name;
+        this.id = id;
     }
 }

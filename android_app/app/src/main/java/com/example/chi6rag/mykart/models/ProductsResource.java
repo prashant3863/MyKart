@@ -1,11 +1,23 @@
 package com.example.chi6rag.mykart.models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProductsResource {
-    public List<ProductResource> products;
+    public ArrayList<ProductResource> products;
 
-    public ProductsResource(List<ProductResource> products) {
-        this.products = products;
+    public ProductResource get(Integer index) {
+        return this.products.get(index);
+    }
+
+    public ProductsResource() {
+        this.products = new ArrayList<ProductResource>();
+    }
+
+    public int size() {
+        return this.products.size();
+    }
+
+    public void addAll(ProductsResource productsResource) {
+        this.products.addAll(productsResource.products);
     }
 }

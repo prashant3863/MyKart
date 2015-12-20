@@ -5,12 +5,20 @@ import com.example.chi6rag.mykart.R;
 public class Product {
     private static final String RUPEES_SYMBOL = "Rs. ";
     public static String ID_TAG = String.valueOf(R.id.product_id_tag);
+
+    public Integer id;
     public String name;
     public String description;
     public double price;
     public String category;
     public int[] imageResources;
-    public int id;
+
+    public Product(Integer id, String name, String description, double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 
     public Product(int id, String name, String description, double price, String category, int[] imageResources) {
         this.id = id;

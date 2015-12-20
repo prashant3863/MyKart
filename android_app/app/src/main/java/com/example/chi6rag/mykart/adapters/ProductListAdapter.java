@@ -7,20 +7,17 @@ import android.view.ViewGroup;
 
 import com.example.chi6rag.mykart.ProductViewHolder;
 import com.example.chi6rag.mykart.R;
+import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.models.ProductResource;
 import com.example.chi6rag.mykart.models.ProductsResource;
 
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
-    private ArrayList<ProductResource> products;
+    private ProductsResource products;
 
     public ProductListAdapter() {
-        this.products = new ArrayList<ProductResource>();
-    }
-
-    public ProductListAdapter(ArrayList<ProductResource> products) {
-        this.products = products;
+        this.products = new ProductsResource();
     }
 
     @Override
@@ -32,9 +29,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        ProductResource product = this.products.get(position);
+        Product product = this.products.get(position).product;
         holder.productView.setTag(R.id.product_id_tag, product.id);
         holder.productName.setText(product.name);
+        holder.productPrice.setText(product.formattedPrice());
     }
 
     @Override
@@ -43,6 +41,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
     }
 
     public void updateProducts(ProductsResource productsResource) {
-        this.products.addAll(productsResource.products);
+        this.products.addAll(productsResource);
     }
 }
