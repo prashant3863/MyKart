@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
-import com.example.chi6rag.mykart.models.Product;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;

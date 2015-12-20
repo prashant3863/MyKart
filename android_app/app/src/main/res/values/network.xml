@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="host" type="string">https://mykartapp.herokuapp.com</string>
-    <string name="products_path">/api/taxons/products</string>
     <string name="port">/</string>
+    <string name="products_path">/api/taxons/products</string>
     <string name="taxonomies_path">/api/taxonomies/</string>
     <string name="default_api_key">4ca135e451a261fabf8a5172e4b9215e73b063d932fad3f1</string>
     <string name="x_spree_token">X-Spree-Token</string>
