@@ -59,7 +59,6 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     @Override
     protected void onPostExecute(CategoriesResource categoriesResource) {
         adapter.populateCategories(categoriesResource);
-        list.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 }

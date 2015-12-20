@@ -1,12 +1,13 @@
 package com.example.chi6rag.mykart.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesResource {
     public List<CategoryResource> taxonomies;
 
-    public CategoriesResource(List<CategoryResource> taxonomies) {
-        this.taxonomies = taxonomies;
+    public CategoriesResource() {
+        this.taxonomies = new ArrayList<CategoryResource>();
     }
 
     public int length() {
@@ -15,5 +16,9 @@ public class CategoriesResource {
 
     public CategoryResource findByPosition(int position) {
         return taxonomies.get(position);
+    }
+
+    public void addAll(CategoriesResource categoriesResource) {
+        this.taxonomies.addAll(categoriesResource.taxonomies);
     }
 }

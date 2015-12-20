@@ -16,6 +16,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflator;
 
     public NavigationDrawerListAdapter(Activity context) {
+        this.mCategoriesResource = new CategoriesResource();
         this.mLayoutInflator = context.getLayoutInflater();
     }
 
@@ -56,6 +57,6 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
     }
 
     public void populateCategories(CategoriesResource categoriesResource) {
-        this.mCategoriesResource = categoriesResource;
+        this.mCategoriesResource.addAll(categoriesResource);
     }
 }

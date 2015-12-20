@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerOptionsList = (ListView) findViewById(R.id.navigation_drawer_options);
 
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
+        mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
+
         new FetchCategoriesTask(this, mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
