@@ -36,7 +36,6 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             ProductsResource productsResource = new Gson().fromJson(bufferedReader, ProductsResource.class);
-            System.out.println();
             return productsResource;
         } catch (IOException e) {
             e.printStackTrace();

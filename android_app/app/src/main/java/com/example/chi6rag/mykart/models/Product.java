@@ -2,6 +2,8 @@ package com.example.chi6rag.mykart.models;
 
 import com.example.chi6rag.mykart.R;
 
+import java.util.List;
+
 public class Product {
     private static final String RUPEES_SYMBOL = "Rs. ";
     public static String ID_TAG = String.valueOf(R.id.product_id_tag);
@@ -12,13 +14,7 @@ public class Product {
     public double price;
     public String category;
     public int[] imageResources;
-
-    public Product(Integer id, String name, String description, double price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
+    public List<Image> images;
 
     public Product(int id, String name, String description, double price, String category, int[] imageResources) {
         this.id = id;
@@ -30,7 +26,7 @@ public class Product {
     }
 
     public int firstImageResource() {
-        if(imageResources.length > 0)
+        if (imageResources.length > 0)
             return imageResources[0];
         return 0;
     }
