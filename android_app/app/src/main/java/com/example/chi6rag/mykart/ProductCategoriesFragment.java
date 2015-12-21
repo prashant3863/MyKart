@@ -33,9 +33,15 @@ public class ProductCategoriesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProductCategory productCategory = productCategories.get(position);
 
-                Intent productsActivityIntent = new Intent(getContext(), ProductsActivity.class);
-                productsActivityIntent.putExtra(ProductCategory.TAG, productCategory);
-                startActivity(productsActivityIntent);
+                Bundle fragmentArguments = new Bundle();
+                fragmentArguments.putParcelable(ProductCategory.TAG, productCategory);
+                ProductsFragment productsFragment = new ProductsFragment();
+                productsFragment.setArguments(fragmentArguments);
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_main_layout, productsFragment)
+                        .commit();
             }
         });
         return view;
