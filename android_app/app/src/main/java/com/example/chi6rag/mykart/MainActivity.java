@@ -33,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
         mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
 
-        new FetchCategoriesTask(this, mNavigationDrawerOptionsList, navigationDrawerListAdapter).execute();
+        new FetchCategoriesTask(this,
+                mNavigationDrawerOptionsList,
+                findViewById(R.id.categories_progress_bar),
+                navigationDrawerListAdapter)
+                .execute();
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {

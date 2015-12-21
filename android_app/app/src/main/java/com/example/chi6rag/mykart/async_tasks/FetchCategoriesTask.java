@@ -3,7 +3,10 @@ package com.example.chi6rag.mykart.async_tasks;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
@@ -25,9 +28,11 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     private final String API_KEY;
 
     private final ListView list;
+    private final ProgressBar progressBar;
     private NavigationDrawerListAdapter adapter;
 
-    public FetchCategoriesTask(Context context, ListView list, NavigationDrawerListAdapter adapter) {
+    public FetchCategoriesTask(Context context, ListView list, View progressBar,
+                               NavigationDrawerListAdapter adapter) {
         Resources resources = context.getResources();
 
         HOST = resources.getString(R.string.host);
@@ -37,7 +42,13 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         X_SPREE_TOKEN = resources.getString(R.string.x_spree_token);
 
         this.list = list;
+        this.progressBar = (ProgressBar) progressBar;
         this.adapter = adapter;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        progressBar.animate().start();
     }
 
     @Override
@@ -60,5 +71,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     protected void onPostExecute(CategoriesResource categoriesResource) {
         adapter.populateCategories(categoriesResource);
         adapter.notifyDataSetChanged();
+        ((ViewGroup) progressBar.getParent()).removeView(progressBar);
+        list.setVisibility(ListView.VISIBLE);
     }
 }

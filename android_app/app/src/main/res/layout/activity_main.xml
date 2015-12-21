@@ -17,10 +17,19 @@
         android:background="#bdc3c7"
         android:layout_gravity="start">
 
+        <ProgressBar
+            android:id="@+id/categories_progress_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center" />
+
         <ListView
             android:id="@+id/navigation_drawer_options"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone"
             android:choiceMode="singleChoice" />
 
     </LinearLayout>
