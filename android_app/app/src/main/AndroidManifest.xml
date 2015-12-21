@@ -24,8 +24,6 @@
             android:name=".ProductsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ProductActivity"/>
-        <activity android:name=".ProductCategoriesActivity">
-        </activity>
     </application>
 
 </manifest>

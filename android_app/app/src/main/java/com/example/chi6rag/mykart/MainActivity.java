@@ -1,6 +1,5 @@
 package com.example.chi6rag.mykart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -61,9 +60,16 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategoryResource categoryResource = navigationDrawerListAdapter.findCategoryResourceByPosition(position);
 
-                Intent intent = new Intent(getApplicationContext(), ProductCategoriesActivity.class);
-                intent.putExtra(CategoryResource.TAG, categoryResource);
-                startActivity(intent);
+                Bundle fragmentArguments = new Bundle();
+                fragmentArguments.putParcelable(CategoryResource.TAG, categoryResource);
+                ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
+                productCategoriesFragment.setArguments(fragmentArguments);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_main_layout, productCategoriesFragment)
+                        .commit();
+                mDrawerLayout.closeDrawer(mNavigationDrawer);
             }
         });
     }
