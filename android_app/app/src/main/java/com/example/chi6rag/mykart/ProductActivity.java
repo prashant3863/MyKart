@@ -23,6 +23,7 @@ public class ProductActivity extends AppCompatActivity {
         ImageView productImage = (ImageView) findViewById(R.id.product_image);
         TextView productName = (TextView) findViewById(R.id.product_name);
         TextView productPrice = (TextView) findViewById(R.id.product_price);
+        TextView productDescription = (TextView) findViewById(R.id.product_description);
 
         Product product = getIntent().getParcelableExtra(Product.TAG);
 
@@ -33,6 +34,8 @@ public class ProductActivity extends AppCompatActivity {
                 .load(HOST + PORT + product.firstImageResource().largeUrl)
                 .placeholder(R.drawable.m_placeholder_2)
                 .into(productImage);
+
+        productDescription.setText(product.description);
     }
 
 }

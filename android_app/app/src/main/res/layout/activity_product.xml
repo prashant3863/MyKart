@@ -28,4 +28,11 @@
         style="@style/product_item_price"
         tools:text="Rs. 14,999" />
 
+    <TextView
+        android:id="@+id/product_description"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/product_item_description"
+        tools:text="Lorem Ipsum Dolor" />
+
 </LinearLayout>

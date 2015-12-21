@@ -38,4 +38,10 @@
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="product_item_description">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
