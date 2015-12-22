@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchProductsTask;
@@ -30,7 +33,7 @@ public class ProductsFragment extends Fragment {
 
         new FetchProductsTask(getContext(),
                 productListAdapter,
-                view.findViewById(R.id.products_progress_bar),
+                (RelativeLayout) view.findViewById(R.id.products_progress_container),
                 productsList)
                 .execute(productCategory.id);
 

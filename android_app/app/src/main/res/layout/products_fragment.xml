@@ -4,12 +4,29 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/products_progress_bar"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center" />
+    <RelativeLayout
+        android:id="@+id/products_progress_container"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/products_progress_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:layout_below="@id/products_progress_bar"
+            android:text="@string/progress_text"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"

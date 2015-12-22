@@ -6,7 +6,10 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
@@ -27,12 +30,13 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     private final String X_SPREE_TOKEN;
     private final String API_KEY;
     private final String ID_KEY;
+    private final RelativeLayout progressContainer;
     private final ProgressBar progressBar;
     private final RecyclerView productsList;
 
     private ProductListAdapter adapter;
 
-    public FetchProductsTask(Context context, ProductListAdapter adapter, View progressBar,
+    public FetchProductsTask(Context context, ProductListAdapter adapter, RelativeLayout progressContainer,
                              View productsList) {
         Resources resources = context.getResources();
 
@@ -44,7 +48,8 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
         ID_KEY = resources.getString(R.string.id_key);
 
         this.adapter = adapter;
-        this.progressBar = (ProgressBar) progressBar;
+        this.progressContainer = progressContainer;
+        this.progressBar = (ProgressBar) progressContainer.findViewById(R.id.products_progress_bar);
         this.productsList = (RecyclerView) productsList;
     }
 
@@ -73,7 +78,7 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     protected void onPostExecute(ProductsResource productsResource) {
         adapter.updateProducts(productsResource);
         adapter.notifyDataSetChanged();
-        ((ViewGroup) progressBar.getParent()).removeView(progressBar);
+        ((ViewGroup) this.progressContainer.getParent()).removeView(this.progressContainer);
         this.productsList.setVisibility(RecyclerView.VISIBLE);
     }
 }
