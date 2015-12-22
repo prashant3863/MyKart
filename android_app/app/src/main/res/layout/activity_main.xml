@@ -10,28 +10,6 @@
         android:layout_width="match_parent"
         />
 
-    <LinearLayout
-        android:id="@+id/navigation_drawer"
-        android:layout_height="match_parent"
-        android:layout_width="280dp"
-        android:background="#bdc3c7"
-        android:layout_gravity="start">
-
-        <ProgressBar
-            android:id="@+id/categories_progress_bar"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-
-        <ExpandableListView
-            android:id="@+id/navigation_drawer_options"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:choiceMode="singleChoice" />
-
-    </LinearLayout>
+    <include layout="@layout/navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

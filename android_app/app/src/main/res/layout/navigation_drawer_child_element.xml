@@ -5,8 +5,6 @@
     android:id="@+id/navigation_drawer_child_element_text"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-    android:textSize="17dip"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
+    android:fontFamily="sans-serif-light"
+    style="@style/navigation_drawer_child_element_text"
     tools:text="Jackets" />

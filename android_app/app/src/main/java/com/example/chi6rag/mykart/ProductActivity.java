@@ -37,5 +37,4 @@ public class ProductActivity extends AppCompatActivity {
 
         productDescription.setText(product.description);
     }
-
 }

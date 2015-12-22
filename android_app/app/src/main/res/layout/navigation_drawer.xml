@@ -1,0 +1,41 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_drawer"
+    android:layout_height="match_parent"
+    android:layout_width="280dp"
+    android:background="#bdc3c7"
+    android:layout_gravity="start">
+
+    <ProgressBar
+        android:id="@+id/categories_progress_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/navigation_drawer_list_container"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#bdc3c7">
+
+        <TextView
+            android:id="@+id/navigation_drawer_shop_for_text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="SHOP FOR"
+            style="@style/navigation_drawer_shop_for_text"
+            android:fontFamily="sans-serif-light"/>
+
+        <ExpandableListView
+            android:id="@+id/navigation_drawer_options"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:choiceMode="singleChoice" />
+    </LinearLayout>
+
+</LinearLayout>

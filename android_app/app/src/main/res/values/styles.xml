@@ -44,4 +44,23 @@
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="navigation_drawer_shop_for_text">
+        <item name="android:paddingLeft">?android:attr/expandableListPreferredItemPaddingLeft</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="navigation_drawer_child_element_text">
+        <item name="android:paddingLeft">?android:attr/expandableListPreferredChildPaddingLeft</item>
+        <item name="android:textSize">17dip</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+    <style name="navigation_drawer_group_element_text">
+        <item name="android:paddingLeft">?android:attr/expandableListPreferredItemPaddingLeft</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

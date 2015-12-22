@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.example.chi6rag.mykart.R;
@@ -28,11 +28,11 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     private final String X_SPREE_TOKEN;
     private final String API_KEY;
 
-    private final ExpandableListView list;
+    private final LinearLayout listContainer;
     private final ProgressBar progressBar;
     private NavigationDrawerListAdapter adapter;
 
-    public FetchCategoriesTask(Context context, ExpandableListView list, View progressBar,
+    public FetchCategoriesTask(Context context, LinearLayout listContainer, View progressBar,
                                NavigationDrawerListAdapter adapter) {
         Resources resources = context.getResources();
 
@@ -42,7 +42,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         API_KEY = resources.getString(R.string.default_api_key);
         X_SPREE_TOKEN = resources.getString(R.string.x_spree_token);
 
-        this.list = list;
+        this.listContainer = listContainer;
         this.progressBar = (ProgressBar) progressBar;
         this.adapter = adapter;
     }
@@ -73,6 +73,6 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         adapter.populateCategories(categoriesResource);
         adapter.notifyDataSetChanged();
         ((ViewGroup) progressBar.getParent()).removeView(progressBar);
-        list.setVisibility(ExpandableListView.VISIBLE);
+        listContainer.setVisibility(LinearLayout.VISIBLE);
     }
 }

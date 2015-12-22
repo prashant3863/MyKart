@@ -4,23 +4,20 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
-import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ExpandableListView mNavigationDrawerOptionsList;
+    private LinearLayout mNavigationDrawerListContainer;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
     @Override
@@ -31,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
         mNavigationDrawerOptionsList = (ExpandableListView) findViewById(R.id.navigation_drawer_options);
+        mNavigationDrawerListContainer = (LinearLayout) findViewById(R.id.navigation_drawer_list_container);
 
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
         mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
 
         new FetchCategoriesTask(this,
-                mNavigationDrawerOptionsList,
+                mNavigationDrawerListContainer,
                 findViewById(R.id.categories_progress_bar),
                 navigationDrawerListAdapter)
                 .execute();
