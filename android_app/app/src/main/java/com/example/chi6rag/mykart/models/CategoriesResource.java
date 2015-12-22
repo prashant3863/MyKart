@@ -14,16 +14,8 @@ public class CategoriesResource {
         return taxonomies.size();
     }
 
-    public CategoryResource findByPosition(int position) {
-        return taxonomies.get(position);
-    }
-
     public void addAll(CategoriesResource categoriesResource) {
         this.taxonomies.addAll(categoriesResource.taxonomies);
-    }
-
-    public int getChildrenCount(int taxonomyPosition) {
-        return taxonomies.get(taxonomyPosition).productCategoriesCount();
     }
 
     public CategoryResource get(int position) {

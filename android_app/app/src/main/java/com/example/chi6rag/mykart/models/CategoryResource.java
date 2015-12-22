@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CategoryResource implements Parcelable {
     public static String TAG = "category_tag";
+    public static String MEN = "men";
     public final Integer id;
     public final String name;
     @SerializedName("root")

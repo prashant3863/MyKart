@@ -5,4 +5,5 @@
     <string name="progress_text">Fetching stylist recommendations for you, from across stores...
     </string>
     <string name="select_category">Select A Category</string>
+    <string name="mens_categories_path">api/taxonomies?q[name_eq]=Men</string>
 </resources>

@@ -9,15 +9,16 @@ import android.widget.TextView;
 
 import com.example.chi6rag.mykart.models.ProductCategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoriesListAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflator;
-    List<ProductCategory> productCategories;
+    ArrayList<ProductCategory> productCategories;
 
-    public ProductCategoriesListAdapter(Activity context, List<ProductCategory> productCategories) {
+    public ProductCategoriesListAdapter(Activity context) {
         this.layoutInflator = context.getLayoutInflater();
-        this.productCategories = productCategories;
+        this.productCategories = new ArrayList<ProductCategory>();
     }
 
     @Override
@@ -47,5 +48,9 @@ public class ProductCategoriesListAdapter extends BaseAdapter {
         TextView productCategoryName = (TextView) view.findViewById(android.R.id.text1);
         productCategoryName.setText(productCategory.name);
         return view;
+    }
+
+    public void populateProductCategories(List<ProductCategory> productCategories) {
+        this.productCategories.addAll(productCategories);
     }
 }
