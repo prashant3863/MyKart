@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class CategoryResource implements Parcelable {
+    public static final String WOMEN = "women";
     public static String TAG = "category_tag";
     public static String MEN = "men";
     public final Integer id;

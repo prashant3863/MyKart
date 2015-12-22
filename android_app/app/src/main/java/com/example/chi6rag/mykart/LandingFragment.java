@@ -34,7 +34,6 @@ public class LandingFragment extends Fragment {
 
                 getFragmentManager()
                         .beginTransaction()
-                        .addToBackStack(LandingFragment.class.getName())
                         .replace(R.id.activity_main_layout, productCategoriesFragment)
                         .commit();
             }
@@ -44,6 +43,17 @@ public class LandingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(LOG_TAG, "queried products for women");
+                Bundle fragmentArguments = new Bundle();
+                fragmentArguments.putString(CategoryResource.TAG, CategoryResource.WOMEN);
+
+                ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
+                productCategoriesFragment.setArguments(fragmentArguments);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(LandingFragment.class.getName())
+                        .replace(R.id.activity_main_layout, productCategoriesFragment)
+                        .commit();
             }
         });
         return view;

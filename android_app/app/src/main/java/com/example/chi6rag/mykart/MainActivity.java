@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .addToBackStack(MainActivity.class.getName())
                         .replace(R.id.activity_main_layout, productsFragment)
                         .commit();
                 mDrawerLayout.closeDrawer(mNavigationDrawer);

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.adapters.ProductCategoriesListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchMensCategoriesTask;
+import com.example.chi6rag.mykart.async_tasks.FetchWomensCategoriesTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
@@ -35,6 +36,13 @@ public class ProductCategoriesFragment extends Fragment {
                     productCategoriesList)
                     .execute();
 
+        else if(hasRequestedWomensProductCategories(bundle))
+            new FetchWomensCategoriesTask(getContext(),
+                    productCategoriesListAdapter,
+                    productCategoriesProgressContainer,
+                    productCategoriesList)
+                    .execute();
+
         productCategoriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,7 +56,6 @@ public class ProductCategoriesFragment extends Fragment {
 
                 getFragmentManager()
                         .beginTransaction()
-                        .disallowAddToBackStack()
                         .replace(R.id.activity_main_layout, productsFragment)
                         .commit();
             }
@@ -59,5 +66,9 @@ public class ProductCategoriesFragment extends Fragment {
 
     private boolean hasRequestedMensProductCategories(Bundle bundle) {
         return bundle.getString(CategoryResource.TAG).equals(CategoryResource.MEN);
+    }
+
+    private boolean hasRequestedWomensProductCategories(Bundle bundle) {
+        return bundle.getString(CategoryResource.TAG).equals(CategoryResource.WOMEN);
     }
 }
