@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LandingFragment landingFragment = new LandingFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout, landingFragment)
+                .commit();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
         mNavigationDrawerOptionsList = (ExpandableListView) findViewById(R.id.navigation_drawer_options);

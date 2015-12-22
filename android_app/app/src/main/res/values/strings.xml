@@ -4,4 +4,5 @@
     <string name="drawer_close">drawer_close</string>
     <string name="progress_text">Fetching stylist recommendations for you, from across stores...
     </string>
+    <string name="select_category">Select A Category</string>
 </resources>

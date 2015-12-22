@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/activity_main_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        />
+        android:orientation="vertical" />
 
     <include layout="@layout/navigation_drawer" />
 

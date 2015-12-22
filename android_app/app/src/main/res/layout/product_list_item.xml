@@ -4,33 +4,33 @@
     android:id="@+id/product_list_item_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:padding="4dp"
-    android:listSelector="@null"
+    android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/product_background">
+    android:background="@drawable/product_background"
+    android:listSelector="@null"
+    android:orientation="vertical"
+    android:padding="4dp">
 
     <ImageView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:scaleType="centerCrop"
         android:id="@+id/product_list_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         tools:src="@drawable/cap_sleeve_cutout_neckline_sheath_1"/>
 
     <TextView
         android:id="@+id/product_list_item_name"
-        android:layout_height="wrap_content"
+        style="@style/product_list_item_name"
         android:layout_width="match_parent"
-        tools:text="Red Dress"
-        style="@style/product_list_item_name"/>
+        android:layout_height="wrap_content"
+        tools:text="Red Dress"/>
 
     <TextView
         android:id="@+id/product_list_item_price"
-        android:layout_height="wrap_content"
+        style="@style/product_list_item_price"
         android:layout_width="match_parent"
-        tools:text="Rs. 9,999"
-        style="@style/product_list_item_price"/>
+        android:layout_height="wrap_content"
+        tools:text="Rs. 9,999"/>
 
 </LinearLayout>

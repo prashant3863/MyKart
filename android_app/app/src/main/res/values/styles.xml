@@ -51,7 +51,8 @@
         <item name="android:textSize">12dp</item>
     </style>
     <style name="navigation_drawer_child_element_text">
-        <item name="android:paddingLeft">?android:attr/expandableListPreferredChildPaddingLeft</item>
+        <item name="android:paddingLeft">?android:attr/expandableListPreferredChildPaddingLeft
+        </item>
         <item name="android:textSize">17dip</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
@@ -62,5 +63,32 @@
         <item name="android:paddingBottom">12dp</item>
         <item name="android:textSize">18dp</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="dont_miss_out_banner">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="select_a_category_text_view">
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="gender_selection_container">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+    <style name="gender_selection_image">
+        <item name="android:scaleType">fitEnd</item>
+    </style>
+    <style name="gender_selection_text">
+        <item name="android:background">#78000000</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">16dp</item>
     </style>
 </resources>
