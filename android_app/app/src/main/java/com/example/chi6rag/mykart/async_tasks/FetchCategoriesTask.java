@@ -31,6 +31,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     private final LinearLayout listContainer;
     private final ProgressBar progressBar;
     private NavigationDrawerListAdapter adapter;
+    private ExpandableListView expandableList;
 
     public FetchCategoriesTask(Context context, LinearLayout listContainer, View progressBar,
                                NavigationDrawerListAdapter adapter) {
@@ -42,9 +43,10 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         API_KEY = resources.getString(R.string.default_api_key);
         X_SPREE_TOKEN = resources.getString(R.string.x_spree_token);
 
-        this.listContainer = listContainer;
         this.progressBar = (ProgressBar) progressBar;
         this.adapter = adapter;
+        this.listContainer = listContainer;
+        this.expandableList = (ExpandableListView) this.listContainer.findViewById(R.id.navigation_drawer_options);
     }
 
     @Override
@@ -74,5 +76,12 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         adapter.notifyDataSetChanged();
         ((ViewGroup) progressBar.getParent()).removeView(progressBar);
         listContainer.setVisibility(LinearLayout.VISIBLE);
+        expandAllGroups(expandableList);
+    }
+
+    private void expandAllGroups(ExpandableListView expandableList) {
+        for (int groupPosition = 0; groupPosition < adapter.getGroupCount(); groupPosition++) {
+            expandableList.expandGroup(groupPosition);
+        }
     }
 }
