@@ -27,6 +27,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/men_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
