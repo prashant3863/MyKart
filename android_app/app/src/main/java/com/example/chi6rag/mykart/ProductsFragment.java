@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
@@ -47,6 +45,11 @@ public class ProductsFragment extends Fragment {
                         startActivity(intent);
                     }
                 }));
+        setActionBarTitleAs(productCategory.name);
         return view;
+    }
+
+    private void setActionBarTitleAs(String title) {
+        getActivity().setTitle(title);
     }
 }
