@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -27,11 +28,11 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     private final String X_SPREE_TOKEN;
     private final String API_KEY;
 
-    private final ListView list;
+    private final ExpandableListView list;
     private final ProgressBar progressBar;
     private NavigationDrawerListAdapter adapter;
 
-    public FetchCategoriesTask(Context context, ListView list, View progressBar,
+    public FetchCategoriesTask(Context context, ExpandableListView list, View progressBar,
                                NavigationDrawerListAdapter adapter) {
         Resources resources = context.getResources();
 
@@ -72,6 +73,6 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         adapter.populateCategories(categoriesResource);
         adapter.notifyDataSetChanged();
         ((ViewGroup) progressBar.getParent()).removeView(progressBar);
-        list.setVisibility(ListView.VISIBLE);
+        list.setVisibility(ExpandableListView.VISIBLE);
     }
 }

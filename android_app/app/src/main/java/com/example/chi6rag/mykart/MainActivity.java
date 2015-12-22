@@ -4,20 +4,23 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
+import com.example.chi6rag.mykart.models.ProductCategory;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
-    private ListView mNavigationDrawerOptionsList;
+    private ExpandableListView mNavigationDrawerOptionsList;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
     @Override
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
-        mNavigationDrawerOptionsList = (ListView) findViewById(R.id.navigation_drawer_options);
+        mNavigationDrawerOptionsList = (ExpandableListView) findViewById(R.id.navigation_drawer_options);
 
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
         mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
@@ -55,21 +58,22 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mNavigationDrawerOptionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mNavigationDrawerOptionsList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CategoryResource categoryResource = navigationDrawerListAdapter.findCategoryResourceByPosition(position);
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                ProductCategory productCategory = navigationDrawerListAdapter.getChild(groupPosition, childPosition);
 
                 Bundle fragmentArguments = new Bundle();
-                fragmentArguments.putParcelable(CategoryResource.TAG, categoryResource);
-                ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
-                productCategoriesFragment.setArguments(fragmentArguments);
+                fragmentArguments.putParcelable(ProductCategory.TAG, productCategory);
+                ProductsFragment productsFragment = new ProductsFragment();
+                productsFragment.setArguments(fragmentArguments);
 
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.activity_main_layout, productCategoriesFragment)
+                        .replace(R.id.activity_main_layout, productsFragment)
                         .commit();
                 mDrawerLayout.closeDrawer(mNavigationDrawer);
+                return true;
             }
         });
     }

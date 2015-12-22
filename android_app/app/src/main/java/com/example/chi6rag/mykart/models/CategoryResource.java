@@ -3,16 +3,19 @@ package com.example.chi6rag.mykart.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class CategoryResource implements Parcelable {
     public static String TAG = "category_tag";
     public final Integer id;
     public final String name;
-    public Category root;
+    @SerializedName("root")
+    public Category category;
 
     public List<ProductCategory> productCategories() {
-        return root.taxons;
+        return category.productCategories();
     }
 
     @Override
@@ -22,13 +25,13 @@ public class CategoryResource implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.root, flags);
+        dest.writeParcelable(this.category, flags);
         dest.writeValue(this.id);
         dest.writeString(this.name);
     }
 
     protected CategoryResource(Parcel in) {
-        this.root = in.readParcelable(Category.class.getClassLoader());
+        this.category = in.readParcelable(Category.class.getClassLoader());
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.name = in.readString();
     }
@@ -42,4 +45,8 @@ public class CategoryResource implements Parcelable {
             return new CategoryResource[size];
         }
     };
+
+    public int productCategoriesCount() {
+        return category.productCategoriesCount();
+    }
 }

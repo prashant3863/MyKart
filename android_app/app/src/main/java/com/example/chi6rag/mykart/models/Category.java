@@ -39,4 +39,12 @@ public class Category implements Parcelable {
             return new Category[size];
         }
     };
+
+    public int productCategoriesCount() {
+        return taxons.size();
+    }
+
+    public List<ProductCategory> productCategories() {
+        return taxons;
+    }
 }

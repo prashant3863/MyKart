@@ -21,4 +21,12 @@ public class CategoriesResource {
     public void addAll(CategoriesResource categoriesResource) {
         this.taxonomies.addAll(categoriesResource.taxonomies);
     }
+
+    public int getChildrenCount(int taxonomyPosition) {
+        return taxonomies.get(taxonomyPosition).productCategoriesCount();
+    }
+
+    public CategoryResource get(int position) {
+        return taxonomies.get(position);
+    }
 }
