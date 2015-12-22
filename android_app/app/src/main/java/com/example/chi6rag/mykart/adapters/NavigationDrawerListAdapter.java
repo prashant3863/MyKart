@@ -91,43 +91,6 @@ public class NavigationDrawerListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-//
-//    @Override
-//    public int getCount() {
-//        return mCategoriesResource.length();
-//    }
-//
-//    @Override
-//    public CategoryResource getItem(int position) {
-//        CategoryResource category = mCategoriesResource.findByPosition(position);
-//        return category;
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        CategoryResource categoryResource = getItem(position);
-//        View view;
-//        if (convertView == null) {
-//    view=mLayoutInflator.inflate(R.layout.navigation_drawer_list_element,parent,false);
-//        } else {
-//            view = convertView;
-//        }
-//        TextView navDrawerListElementText = (TextView) view
-//                .findViewById(R.id.navigation_drawer_list_element_text);
-//        navDrawerListElementText.setText(categoryResource.name);
-//        return view;
-//    }
-
-    public CategoryResource findCategoryResourceByPosition(int position) {
-        CategoryResource categoryResource = mCategoriesResource.findByPosition(position);
-        return categoryResource;
-    }
-
     public void populateCategories(CategoriesResource categoriesResource) {
         this.mCategoriesResource.addAll(categoriesResource);
     }
