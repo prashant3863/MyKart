@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.example.chi6rag.mykart.models.Product;
 import com.squareup.picasso.Picasso;
 
+// TODO: Amir - 23/12/15 - remove editor warnings
 public class ProductActivity extends AppCompatActivity {
+    // TODO: Amir - 23/12/15 - not constants
     private String HOST;
     private String PORT;
 
@@ -28,6 +30,7 @@ public class ProductActivity extends AppCompatActivity {
         Product product = getIntent().getParcelableExtra(Product.TAG);
 
         productName.setText(product.name);
+// TODO: Amir - 23/12/15 - use view model and unit test
         productPrice.setText(product.formattedPrice());
 
         Picasso.with(this)

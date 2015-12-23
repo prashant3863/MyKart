@@ -34,7 +34,7 @@ public class ProductsFragment extends Fragment {
                 (RelativeLayout) view.findViewById(R.id.products_progress_container),
                 productsList)
                 .execute(productCategory.id);
-
+        // TODO: Amir - 23/12/15 - can set click listener on the viewholder root view
         productsList.addOnItemTouchListener(new ProductsListTouchListener(getContext(),
                 new ProductsListTouchListener.OnItemClickListener() {
                     @Override

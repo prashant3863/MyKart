@@ -45,7 +45,7 @@ public class ProductCategoriesFragment extends Fragment {
 
                 ProductsFragment productsFragment = new ProductsFragment();
                 productsFragment.setArguments(bundle);
-
+                // TODO: Amir - 23/12/15 - avoid replacing fragment from inside a fragment
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_main_layout, productsFragment)

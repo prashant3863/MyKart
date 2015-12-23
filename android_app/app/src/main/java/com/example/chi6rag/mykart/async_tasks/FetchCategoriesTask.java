@@ -65,6 +65,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
             CategoriesResource categoriesResource = new Gson().fromJson(bufferedReader, CategoriesResource.class);
             return categoriesResource;
         } catch (IOException e) {
+            // TODO: Amir - 23/12/15 - print to Log.e
             e.printStackTrace();
         }
         return null;
@@ -74,6 +75,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
     protected void onPostExecute(CategoriesResource categoriesResource) {
         adapter.populateCategories(categoriesResource);
         adapter.notifyDataSetChanged();
+        // TODO: Amir - 23/12/15 - can make progressBar visibility GONE, you might need to show again
         ((ViewGroup) progressBar.getParent()).removeView(progressBar);
         listContainer.setVisibility(LinearLayout.VISIBLE);
         expandAllGroups(expandableList);

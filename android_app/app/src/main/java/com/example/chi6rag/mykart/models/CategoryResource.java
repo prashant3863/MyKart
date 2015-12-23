@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// TODO: Amir - 23/12/15 - confusing model names in same package - Category, CategoryResouce, CategoriesResource
 public class CategoryResource implements Parcelable {
     public static final String WOMEN = "women";
     public static String TAG = "category_tag";

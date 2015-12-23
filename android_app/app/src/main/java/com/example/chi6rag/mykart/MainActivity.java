@@ -13,6 +13,7 @@ import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
+// TODO: Amir - 23/12/15 - remove editor warnings
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         final NavigationDrawerListAdapter navigationDrawerListAdapter = new NavigationDrawerListAdapter(this);
         mNavigationDrawerOptionsList.setAdapter(navigationDrawerListAdapter);
-
         new FetchCategoriesTask(this,
                 mNavigationDrawerListContainer,
                 findViewById(R.id.categories_progress_bar),
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+// TODO: Amir - 23/12/15 - try adding presenter unit test for interaction
 
         mNavigationDrawerOptionsList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (hasClickedNavigationDrawerIcon(item)) {
+            // TODO: Amir - 23/12/15 - drawer bar framework should do the toggle
             if (mDrawerLayout.isDrawerOpen(mNavigationDrawer)) {
                 mDrawerLayout.closeDrawer(mNavigationDrawer);
             } else {

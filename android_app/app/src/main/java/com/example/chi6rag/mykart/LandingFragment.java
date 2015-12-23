@@ -31,7 +31,7 @@ public class LandingFragment extends Fragment {
 
                 ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
                 productCategoriesFragment.setArguments(fragmentArguments);
-
+// TODO: Amir - 23/12/15 - avoid manipulating fragments from inside a fragment, make a activity callback instead
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_main_layout, productCategoriesFragment)
@@ -49,6 +49,7 @@ public class LandingFragment extends Fragment {
                 ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
                 productCategoriesFragment.setArguments(fragmentArguments);
 
+// TODO: Amir - 23/12/15 - avoid manipulating fragments from inside a fragment, make a activity callback instead
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(LandingFragment.class.getName())
