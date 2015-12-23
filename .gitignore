@@ -1,6 +1,15 @@
+
 ultrapush
 .gradle
 .idea
 android_app/local.properties
 android_app/build/
 android_app/.idea/
+/.bundle
+
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+/log/*
+!/log/.keep
+/tmp
