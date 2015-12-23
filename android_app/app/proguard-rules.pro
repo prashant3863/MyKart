@@ -16,5 +16,4 @@
 #   public *;
 #}
 
--dontwarn com.squareup.picasso.**
--keep com.squareup.picasso.** { *; }
+-dontwarn com.squareup.okhttp.**
