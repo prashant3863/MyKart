@@ -11,8 +11,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.adapters.ProductCategoriesListAdapter;
-import com.example.chi6rag.mykart.async_tasks.FetchMensCategoriesTask;
-import com.example.chi6rag.mykart.async_tasks.FetchWomensCategoriesTask;
+import com.example.chi6rag.mykart.async_tasks.FetchCategoriesBasedOnGenderTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
@@ -29,19 +28,12 @@ public class ProductCategoriesFragment extends Fragment {
         productCategoriesList.setAdapter(productCategoriesListAdapter);
         Bundle bundle = getArguments();
 
-        if (hasRequestedMensProductCategories(bundle))
-            new FetchMensCategoriesTask(getContext(),
-                    productCategoriesListAdapter,
-                    productCategoriesProgressContainer,
-                    productCategoriesList)
-                    .execute();
-
-        else if(hasRequestedWomensProductCategories(bundle))
-            new FetchWomensCategoriesTask(getContext(),
-                    productCategoriesListAdapter,
-                    productCategoriesProgressContainer,
-                    productCategoriesList)
-                    .execute();
+        new FetchCategoriesBasedOnGenderTask(getContext(),
+                selectedGender(bundle),
+                productCategoriesListAdapter,
+                productCategoriesProgressContainer,
+                productCategoriesList)
+                .execute();
 
         productCategoriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,11 +56,7 @@ public class ProductCategoriesFragment extends Fragment {
         return view;
     }
 
-    private boolean hasRequestedMensProductCategories(Bundle bundle) {
-        return bundle.getString(CategoryResource.TAG).equals(CategoryResource.MEN);
-    }
-
-    private boolean hasRequestedWomensProductCategories(Bundle bundle) {
-        return bundle.getString(CategoryResource.TAG).equals(CategoryResource.WOMEN);
+    private String selectedGender(Bundle bundle) {
+        return bundle.getString(CategoryResource.TAG);
     }
 }

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.ProductCategoriesListAdapter;
 import com.example.chi6rag.mykart.models.CategoriesResource;
+import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 import com.google.gson.Gson;
 
@@ -22,33 +23,43 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class FetchMensCategoriesTask extends AsyncTask<Void, Void, CategoriesResource> {
+public class FetchCategoriesBasedOnGenderTask extends AsyncTask<Void, Void, CategoriesResource> {
     private final String HOST;
     private final String PORT;
-    private final String MENS_CATEGORIES_ENDPOINT;
+    private final String CATEGORIES_ENDPOINT;
     private final String X_SPREE_TOKEN;
     private final String API_KEY;
-    private final String MENS_CATEGORIES_PATH;
+    private final String CATEGORIES_PATH;
     private final ProductCategoriesListAdapter adapter;
     private final ListView list;
     private final RelativeLayout container;
     private final ProgressBar progressBar;
+    private final Context context;
 
-    public FetchMensCategoriesTask(Context context, ProductCategoriesListAdapter adapter,
-                                   RelativeLayout productCategoriesProgressContainer,
-                                   ListView productCategoriesList) {
+    public FetchCategoriesBasedOnGenderTask(Context context, String gender, ProductCategoriesListAdapter adapter,
+                                            RelativeLayout container, ListView list) {
+        this.context = context;
         Resources resources = context.getResources();
         this.adapter = adapter;
-        this.container = productCategoriesProgressContainer;
-        this.list = productCategoriesList;
+        this.container = container;
+        this.list = list;
 
         HOST = resources.getString(R.string.host);
         PORT = resources.getString(R.string.port);
-        MENS_CATEGORIES_PATH = context.getString(R.string.mens_categories_path);
-        MENS_CATEGORIES_ENDPOINT = HOST + PORT + MENS_CATEGORIES_PATH;
+        CATEGORIES_PATH = fetchCategoriesPathBasedOnGender(gender);
+        CATEGORIES_ENDPOINT = HOST + PORT + CATEGORIES_PATH;
         API_KEY = resources.getString(R.string.default_api_key);
         X_SPREE_TOKEN = resources.getString(R.string.x_spree_token);
         this.progressBar = (ProgressBar) this.container.findViewById(R.id.product_categories_progress_bar);
+    }
+
+    private String fetchCategoriesPathBasedOnGender(String gender) {
+        if (gender.equals(CategoryResource.MEN)) {
+            return context.getString(R.string.mens_categories_path);
+        } else if (gender.equals(CategoryResource.WOMEN)) {
+            return context.getString(R.string.womens_categories_path);
+        }
+        return null;
     }
 
     @Override
@@ -59,7 +70,7 @@ public class FetchMensCategoriesTask extends AsyncTask<Void, Void, CategoriesRes
     @Override
     protected CategoriesResource doInBackground(Void... params) {
         try {
-            URL url = new URL(MENS_CATEGORIES_ENDPOINT);
+            URL url = new URL(CATEGORIES_ENDPOINT);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestProperty(X_SPREE_TOKEN, API_KEY);
             InputStream inputStream = httpURLConnection.getInputStream();
