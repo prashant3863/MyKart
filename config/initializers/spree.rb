@@ -10,7 +10,7 @@ Spree.config do |config|
   # Core:
 
   # Default currency for new sites
-  config.currency = "USD"
+  config.currency = "INR"
 
   # from address for transactional emails
   config.mails_from = "store@example.com"
@@ -52,3 +52,4 @@ Spree.config do |config|
 end
 
 Spree.user_class = "Spree::LegacyUser"
+Spree::Api::Config[:requires_authentication] = false
