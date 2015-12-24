@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -70,7 +71,7 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     protected void onPostExecute(ProductsResource productsResource) {
         adapter.updateProducts(productsResource);
         adapter.notifyDataSetChanged();
-        this.progressContainer.setVisibility(ProgressBar.INVISIBLE);
+        ((ViewGroup) this.progressContainer.getParent()).removeView(this.progressContainer);
         this.productsList.setVisibility(RecyclerView.VISIBLE);
     }
 }

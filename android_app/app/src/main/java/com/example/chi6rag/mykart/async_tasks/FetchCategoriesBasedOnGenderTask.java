@@ -86,7 +86,7 @@ public class FetchCategoriesBasedOnGenderTask extends AsyncTask<Void, Void, Cate
         adapter.notifyDataSetChanged();
 
         this.progressBar.animate().cancel();
-        this.container.setVisibility(RelativeLayout.INVISIBLE);
+        ((ViewGroup) this.container.getParent()).removeView(this.container);
         this.list.setVisibility(ListView.VISIBLE);
     }
 }

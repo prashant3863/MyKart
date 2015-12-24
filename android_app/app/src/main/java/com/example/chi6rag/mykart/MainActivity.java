@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +15,7 @@ import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.CategoryResource;
+import com.example.chi6rag.mykart.network.ConnectionDetector;
 import com.example.chi6rag.mykart.network.ProductCategory;
 
 public class MainActivity extends AppCompatActivity implements
@@ -113,6 +115,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLandingScreenCategoryClick(String gender) {
+        ConnectionDetector connectionDetector = new ConnectionDetector(this);
+        if (connectionDetector.isNotConnectedToInternet()) {
+            showNotConnectedToInternetAlertDialog();
+            return;
+        }
         Bundle fragmentArguments = new Bundle();
         fragmentArguments.putString(CategoryResource.TAG, gender);
 
@@ -123,6 +130,15 @@ public class MainActivity extends AppCompatActivity implements
                 .beginTransaction()
                 .replace(R.id.activity_main_layout, productCategoriesFragment)
                 .commit();
+    }
+
+    private void showNotConnectedToInternetAlertDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder
+                .setTitle("Network Error")
+                .setMessage("No Internet Connection")
+                .create()
+                .show();
     }
 
     @Override
