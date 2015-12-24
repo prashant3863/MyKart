@@ -3,15 +3,21 @@ package com.example.chi6rag.mykart.async_tasks;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.network.CategoriesResource;
+import com.example.chi6rag.mykart.network.ConnectionDetector;
+import com.example.chi6rag.mykart.utils.ViewFlipper;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -29,11 +35,14 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
 
     private final LinearLayout listContainer;
     private final ProgressBar progressBar;
+    private final Context context;
     private NavigationDrawerListAdapter adapter;
     private ExpandableListView expandableList;
+    private ConnectionDetector connectionDetector;
 
     public FetchCategoriesTask(Context context, LinearLayout listContainer, View progressBar,
                                NavigationDrawerListAdapter adapter) {
+        this.context = context;
         Resources resources = context.getResources();
 
         host = resources.getString(R.string.host);
@@ -44,6 +53,7 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
         this.adapter = adapter;
         this.listContainer = listContainer;
         this.expandableList = (ExpandableListView) this.listContainer.findViewById(R.id.navigation_drawer_options);
+        this.connectionDetector = new ConnectionDetector(context);
     }
 
     @Override
@@ -68,11 +78,27 @@ public class FetchCategoriesTask extends AsyncTask<Void, Void, CategoriesResourc
 
     @Override
     protected void onPostExecute(CategoriesResource categoriesResource) {
+        if (connectionDetector.isNotConnectedToInternet() || categoriesResource == null) {
+            TextView textView = createErrorTextView();
+            new ViewFlipper(context).replace(this.progressBar, textView);
+            return;
+        }
         adapter.populateCategories(categoriesResource);
         adapter.notifyDataSetChanged();
         progressBar.setVisibility(ProgressBar.INVISIBLE);
         listContainer.setVisibility(LinearLayout.VISIBLE);
         expandAllGroups(expandableList);
+    }
+
+    @NonNull
+    private TextView createErrorTextView() {
+        TextView textView = new TextView(this.context);
+        textView.setText("Cannot Fetch Categories");
+        textView.setLayoutParams(this.progressBar.getLayoutParams());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+        return textView;
     }
 
     private void expandAllGroups(ExpandableListView expandableList) {

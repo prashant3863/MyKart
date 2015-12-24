@@ -84,12 +84,9 @@ public class FetchCategoriesBasedOnGenderTask extends AsyncTask<Void, Void, Cate
         List<ProductCategory> productCategories = categoriesResource.get(0).productCategories();
         adapter.populateProductCategories(productCategories);
         adapter.notifyDataSetChanged();
-        this.progressBar.animate().cancel();
-        removeContainer();
-        this.list.setVisibility(ListView.VISIBLE);
-    }
 
-    private void removeContainer() {
-        ((ViewGroup) this.container.getParent()).removeView(this.container);
+        this.progressBar.animate().cancel();
+        this.container.setVisibility(RelativeLayout.INVISIBLE);
+        this.list.setVisibility(ListView.VISIBLE);
     }
 }
