@@ -13,16 +13,14 @@ import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 import com.squareup.picasso.Picasso;
 
-// TODO: Amir - 23/12/15 - remove editor warnings
 public class ProductActivity extends AppCompatActivity {
-    // TODO: Amir - 23/12/15 - not constants
-    private String HOST;
-    private String PORT;
+    private String host;
+    private String port;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        HOST = this.getString(R.string.host);
-        PORT = this.getString(R.string.port);
+        host = this.getString(R.string.host);
+        port = this.getString(R.string.port);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
@@ -40,7 +38,7 @@ public class ProductActivity extends AppCompatActivity {
         productPrice.setText(product.formattedPrice());
 
         Picasso.with(this)
-                .load(HOST + PORT + product.firstImageResource().largeUrl)
+                .load(host + port + product.firstImageResource().largeUrl)
                 .placeholder(R.drawable.m_placeholder_2)
                 .into(productImage);
 
