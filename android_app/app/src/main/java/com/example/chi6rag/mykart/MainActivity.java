@@ -14,8 +14,9 @@ import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
-// TODO: Amir - 23/12/15 - remove editor warnings
-public class MainActivity extends AppCompatActivity implements LandingFragment.OnLandingScreenCategoryClickListener {
+public class MainActivity extends AppCompatActivity
+        implements LandingFragment.OnLandingScreenCategoryClickListener,
+        ProductCategoriesFragment.OnProductCategoryClickListener {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ExpandableListView mNavigationDrawerOptionsList;
@@ -118,6 +119,19 @@ public class MainActivity extends AppCompatActivity implements LandingFragment.O
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_main_layout, productCategoriesFragment)
+                .commit();
+    }
+
+    @Override
+    public void onProductCategoryClick(ProductCategory productCategory) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ProductCategory.TAG, productCategory);
+
+        ProductsFragment productsFragment = new ProductsFragment();
+        productsFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout, productsFragment)
                 .commit();
     }
 }

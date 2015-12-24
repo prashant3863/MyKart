@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,22 @@ import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
 public class ProductCategoriesFragment extends Fragment {
+    private OnProductCategoryClickListener listener;
+
+    public interface OnProductCategoryClickListener {
+        public void onProductCategoryClick(ProductCategory productCategory);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnProductCategoryClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnProductCategoryClickListener");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,20 +56,9 @@ public class ProductCategoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProductCategory productCategory = productCategoriesListAdapter.getItem(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(ProductCategory.TAG, productCategory);
-
-                ProductsFragment productsFragment = new ProductsFragment();
-                productsFragment.setArguments(bundle);
-                // TODO: Amir - 23/12/15 - avoid replacing fragment from inside a fragment
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_main_layout, productsFragment)
-                        .commit();
+                listener.onProductCategoryClick(productCategory);
             }
         });
-
         return view;
     }
 
