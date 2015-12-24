@@ -1,6 +1,6 @@
 package com.example.chi6rag.mykart;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +17,22 @@ import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
 public class ProductsFragment extends Fragment {
+    private OnProductClickListener listener;
+
+    public interface OnProductClickListener {
+        public void onProductClick(Product product);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnProductClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnProductClickListener");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,15 +50,13 @@ public class ProductsFragment extends Fragment {
                 (RelativeLayout) view.findViewById(R.id.products_progress_container),
                 productsList)
                 .execute(productCategory.id);
-        // TODO: Amir - 23/12/15 - can set click listener on the viewholder root view
+
         productsList.addOnItemTouchListener(new ProductsListTouchListener(getContext(),
                 new ProductsListTouchListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Product product = productListAdapter.findProductByPosition(position);
-                        Intent intent = new Intent(getContext(), ProductActivity.class);
-                        intent.putExtra(Product.TAG, product);
-                        startActivity(intent);
+                        listener.onProductClick(product);
                     }
                 }));
         setActionBarTitleAs(productCategory.name);

@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,11 +13,13 @@ import android.widget.LinearLayout;
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.CategoryResource;
+import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
-public class MainActivity extends AppCompatActivity
-        implements LandingFragment.OnLandingScreenCategoryClickListener,
-        ProductCategoriesFragment.OnProductCategoryClickListener {
+public class MainActivity extends AppCompatActivity implements
+        LandingFragment.OnLandingScreenCategoryClickListener,
+        ProductCategoriesFragment.OnProductCategoryClickListener,
+        ProductsFragment.OnProductClickListener {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ExpandableListView mNavigationDrawerOptionsList;
@@ -133,5 +136,12 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.activity_main_layout, productsFragment)
                 .commit();
+    }
+
+    @Override
+    public void onProductClick(Product product) {
+        Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra(Product.TAG, product);
+        startActivity(intent);
     }
 }
