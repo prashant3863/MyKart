@@ -1,10 +1,15 @@
 package com.example.chi6rag.mykart;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
+import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 import com.squareup.picasso.Picasso;
 
@@ -26,8 +31,9 @@ public class ProductActivity extends AppCompatActivity {
         TextView productName = (TextView) findViewById(R.id.product_name);
         TextView productPrice = (TextView) findViewById(R.id.product_price);
         TextView productDescription = (TextView) findViewById(R.id.product_description);
+        Button addToCartButton = (Button) findViewById(R.id.add_to_cart_button);
 
-        Product product = getIntent().getParcelableExtra(Product.TAG);
+        final Product product = getIntent().getParcelableExtra(Product.TAG);
 
         productName.setText(product.name);
 // TODO: Amir - 23/12/15 - use view model and unit test
@@ -40,6 +46,19 @@ public class ProductActivity extends AppCompatActivity {
 
         productDescription.setText(product.description);
 
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String orderNumber = fetchCurrentOrderNumber();
+                if (orderNumber == null) {
+                    new CreateOrderTask(getApplicationContext()).execute();
+                }
+            }
+        });
+    }
 
+    private String fetchCurrentOrderNumber() {
+        SharedPreferences orderSharedPreferences = getSharedPreferences(Order.TAG, MODE_PRIVATE);
+        return orderSharedPreferences.getString(Order.CURRENT_NUMBER_KEY, null);
     }
 }
