@@ -39,5 +39,7 @@ public class ProductActivity extends AppCompatActivity {
                 .into(productImage);
 
         productDescription.setText(product.description);
+
+
     }
 }
