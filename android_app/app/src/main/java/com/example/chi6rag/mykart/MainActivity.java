@@ -11,10 +11,11 @@ import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.models.CategoryResource;
 import com.example.chi6rag.mykart.models.ProductCategory;
 
 // TODO: Amir - 23/12/15 - remove editor warnings
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LandingFragment.OnLandingScreenCategoryClickListener {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ExpandableListView mNavigationDrawerOptionsList;
@@ -104,5 +105,19 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean hasClickedNavigationDrawerIcon(MenuItem item) {
         return mActionBarDrawerToggle.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLandingScreenCategoryClick(String gender) {
+        Bundle fragmentArguments = new Bundle();
+        fragmentArguments.putString(CategoryResource.TAG, gender);
+
+        ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
+        productCategoriesFragment.setArguments(fragmentArguments);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout, productCategoriesFragment)
+                .commit();
     }
 }

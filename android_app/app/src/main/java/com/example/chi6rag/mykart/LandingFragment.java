@@ -1,5 +1,7 @@
 package com.example.chi6rag.mykart;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +14,21 @@ import android.widget.RelativeLayout;
 import com.example.chi6rag.mykart.models.CategoryResource;
 
 public class LandingFragment extends Fragment {
-    private static final String LOG_TAG = "chi6rag";
+    private OnLandingScreenCategoryClickListener listener;
+
+    public interface OnLandingScreenCategoryClickListener {
+        public void onLandingScreenCategoryClick(String gender);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (OnLandingScreenCategoryClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnLandingScreenCategoryClickListener");
+        }
+    }
 
     @Nullable
     @Override
@@ -25,36 +41,14 @@ public class LandingFragment extends Fragment {
         menSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "queried products for men");
-                Bundle fragmentArguments = new Bundle();
-                fragmentArguments.putString(CategoryResource.TAG, CategoryResource.MEN);
-
-                ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
-                productCategoriesFragment.setArguments(fragmentArguments);
-// TODO: Amir - 23/12/15 - avoid manipulating fragments from inside a fragment, make a activity callback instead
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_main_layout, productCategoriesFragment)
-                        .commit();
+                listener.onLandingScreenCategoryClick(CategoryResource.MEN);
             }
         });
 
         womenSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "queried products for women");
-                Bundle fragmentArguments = new Bundle();
-                fragmentArguments.putString(CategoryResource.TAG, CategoryResource.WOMEN);
-
-                ProductCategoriesFragment productCategoriesFragment = new ProductCategoriesFragment();
-                productCategoriesFragment.setArguments(fragmentArguments);
-
-// TODO: Amir - 23/12/15 - avoid manipulating fragments from inside a fragment, make a activity callback instead
-                getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(LandingFragment.class.getName())
-                        .replace(R.id.activity_main_layout, productCategoriesFragment)
-                        .commit();
+                listener.onLandingScreenCategoryClick(CategoryResource.WOMEN);
             }
         });
         return view;
