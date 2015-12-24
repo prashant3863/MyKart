@@ -8,9 +8,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.chi6rag.mykart.R;
-import com.example.chi6rag.mykart.models.CategoriesResource;
-import com.example.chi6rag.mykart.models.CategoryResource;
-import com.example.chi6rag.mykart.models.ProductCategory;
+import com.example.chi6rag.mykart.network.CategoriesResource;
+import com.example.chi6rag.mykart.network.CategoryResource;
+import com.example.chi6rag.mykart.network.ProductCategory;
 
 import java.util.List;
 

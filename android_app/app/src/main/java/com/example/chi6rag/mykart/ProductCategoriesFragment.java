@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.example.chi6rag.mykart.adapters.ProductCategoriesListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesBasedOnGenderTask;
-import com.example.chi6rag.mykart.models.CategoryResource;
-import com.example.chi6rag.mykart.models.ProductCategory;
+import com.example.chi6rag.mykart.network.CategoryResource;
+import com.example.chi6rag.mykart.network.ProductCategory;
 
 public class ProductCategoriesFragment extends Fragment {
     private OnProductCategoryClickListener listener;

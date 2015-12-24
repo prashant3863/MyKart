@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.chi6rag.mykart.models.CategoryResource;
+import com.example.chi6rag.mykart.network.CategoryResource;
 
 public class LandingFragment extends Fragment {
     private OnLandingScreenCategoryClickListener listener;

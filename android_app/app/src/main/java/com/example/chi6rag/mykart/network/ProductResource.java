@@ -1,5 +1,6 @@
-package com.example.chi6rag.mykart.models;
+package com.example.chi6rag.mykart.network;
 
+import com.example.chi6rag.mykart.models.Product;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductResource {

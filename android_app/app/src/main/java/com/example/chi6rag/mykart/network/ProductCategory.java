@@ -1,4 +1,4 @@
-package com.example.chi6rag.mykart.models;
+package com.example.chi6rag.mykart.network;
 
 import android.os.Parcel;
 import android.os.Parcelable;

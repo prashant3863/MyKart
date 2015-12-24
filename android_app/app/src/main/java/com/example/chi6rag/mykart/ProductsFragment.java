@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchProductsTask;
 import com.example.chi6rag.mykart.models.Product;
-import com.example.chi6rag.mykart.models.ProductCategory;
+import com.example.chi6rag.mykart.network.ProductCategory;
 
 public class ProductsFragment extends Fragment {
     private OnProductClickListener listener;

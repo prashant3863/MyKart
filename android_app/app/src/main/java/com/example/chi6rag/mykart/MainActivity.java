@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
-import com.example.chi6rag.mykart.models.CategoryResource;
+import com.example.chi6rag.mykart.network.CategoryResource;
 import com.example.chi6rag.mykart.models.Product;
-import com.example.chi6rag.mykart.models.ProductCategory;
+import com.example.chi6rag.mykart.network.ProductCategory;
 
 public class MainActivity extends AppCompatActivity implements
         LandingFragment.OnLandingScreenCategoryClickListener,

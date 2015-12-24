@@ -3,6 +3,8 @@ package com.example.chi6rag.mykart.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.chi6rag.mykart.network.ProductCategory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +41,6 @@ public class Category implements Parcelable {
             return new Category[size];
         }
     };
-
-    public int productCategoriesCount() {
-        return taxons.size();
-    }
 
     public List<ProductCategory> productCategories() {
         return taxons;

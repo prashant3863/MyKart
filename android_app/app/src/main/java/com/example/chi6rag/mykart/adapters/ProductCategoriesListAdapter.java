@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.chi6rag.mykart.models.ProductCategory;
+import com.example.chi6rag.mykart.network.ProductCategory;
 
 import java.util.ArrayList;
 import java.util.List;

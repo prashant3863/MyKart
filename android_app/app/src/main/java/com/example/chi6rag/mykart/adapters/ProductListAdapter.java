@@ -9,19 +9,19 @@ import android.view.ViewGroup;
 import com.example.chi6rag.mykart.ProductViewHolder;
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.models.Product;
-import com.example.chi6rag.mykart.models.ProductsResource;
+import com.example.chi6rag.mykart.network.ProductsResource;
 import com.squareup.picasso.Picasso;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     private final Context context;
     private ProductsResource products;
-    private final String HOST;
-    private final String PORT;
+    private final String host;
+    private final String port;
 
     public ProductListAdapter(Context context) {
         this.context = context;
-        HOST = context.getString(R.string.host);
-        PORT = context.getString(R.string.port).replace("/", "");
+        host = context.getString(R.string.host);
+        port = context.getString(R.string.port).replace("/", "");
         this.products = new ProductsResource();
     }
 
@@ -39,7 +39,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
         holder.productName.setText(product.name);
         holder.productPrice.setText(product.formattedPrice());
         Picasso.with(context)
-                .load(HOST + PORT + product.firstImageResource().largeUrl)
+                .load(host + port + product.firstImageResource().largeUrl)
                 .placeholder(R.drawable.m_placeholder_2)
                 .into(holder.productImage);
     }
