@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Parcelable {
-    private static final String RUPEES_SYMBOL = "Rs. ";
     public static final String TAG = "product";
 
     public Integer id;
@@ -16,17 +15,17 @@ public class Product implements Parcelable {
     public double price;
     public List<Image> images;
 
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public Image firstImageResource() {
         if (images.size() > 0) {
             return images.get(0);
         }
         return null;
     }
-
-    public String formattedPrice() {
-        return RUPEES_SYMBOL + String.valueOf(this.price);
-    }
-
 
     @Override
     public int describeContents() {
@@ -40,9 +39,6 @@ public class Product implements Parcelable {
         dest.writeString(this.description);
         dest.writeDouble(this.price);
         dest.writeList(this.images);
-    }
-
-    public Product() {
     }
 
     protected Product(Parcel in) {

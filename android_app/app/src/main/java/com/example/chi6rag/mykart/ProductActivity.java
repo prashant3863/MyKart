@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
 import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
+import com.example.chi6rag.mykart.view_models.ProductViewModel;
 import com.squareup.picasso.Picasso;
 
 public class ProductActivity extends AppCompatActivity {
@@ -32,10 +33,10 @@ public class ProductActivity extends AppCompatActivity {
         Button addToCartButton = (Button) findViewById(R.id.add_to_cart_button);
 
         final Product product = getIntent().getParcelableExtra(Product.TAG);
+        ProductViewModel productViewModel = new ProductViewModel(product, getResources());
 
         productName.setText(product.name);
-// TODO: Amir - 23/12/15 - use view model and unit test
-        productPrice.setText(product.formattedPrice());
+        productPrice.setText(productViewModel.formattedPrice());
 
         Picasso.with(this)
                 .load(host + port + product.firstImageResource().largeUrl)

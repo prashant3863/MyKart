@@ -7,4 +7,5 @@
     <string name="select_category">Select A Category</string>
     <string name="mens_categories_path">api/taxonomies?q[name_eq]=Men</string>
     <string name="womens_categories_path">api/taxonomies?q[name_eq]=Women</string>
+    <string name="indian_currency">Rs.</string>
 </resources>

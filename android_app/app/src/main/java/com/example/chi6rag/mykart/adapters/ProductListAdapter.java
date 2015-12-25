@@ -10,6 +10,7 @@ import com.example.chi6rag.mykart.ProductViewHolder;
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.ProductsResource;
+import com.example.chi6rag.mykart.view_models.ProductViewModel;
 import com.squareup.picasso.Picasso;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
@@ -35,9 +36,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product product = this.products.get(position).product;
+        ProductViewModel productViewModel = new ProductViewModel(product, context.getResources());
         holder.productView.setTag(R.id.product_id_tag, product.id);
         holder.productName.setText(product.name);
-        holder.productPrice.setText(product.formattedPrice());
+        holder.productPrice.setText(productViewModel.formattedPrice());
         Picasso.with(context)
                 .load(host + port + product.firstImageResource().largeUrl)
                 .placeholder(R.drawable.m_placeholder_2)
