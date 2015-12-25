@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements
         LandingFragment.OnLandingScreenCategoryClickListener,
         ProductCategoriesFragment.OnProductCategoryClickListener,
         ProductsFragment.OnProductClickListener {
+    public static final String TAG_ACTIVITY_MAIN_LAYOUT_RIGHT = "tag_activity_main_layout_right";
+    public static final String TAG_ACTIVITY_MAIN_LAYOUT = "tag_activity_main_layout";
     private DrawerLayout mDrawerLayout;
     private LinearLayout mNavigationDrawer;
     private ExpandableListView mNavigationDrawerOptionsList;
@@ -148,16 +151,47 @@ public class MainActivity extends AppCompatActivity implements
 
         ProductsFragment productsFragment = new ProductsFragment();
         productsFragment.setArguments(bundle);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_main_layout, productsFragment)
-                .commit();
+
+        if (isPortraitMode()) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_main_layout, productsFragment)
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_main_layout, productsFragment, TAG_ACTIVITY_MAIN_LAYOUT)
+                    .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_main_layout_right, new ProductDetailFragment(), TAG_ACTIVITY_MAIN_LAYOUT_RIGHT)
+                    .commit();
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            ((FrameLayout) findViewById(R.id.activity_main_layout_right)).setLayoutParams(layoutParams);
+        }
+    }
+
+    private boolean isPortraitMode() {
+        return findViewById(R.id.activity_main_layout_right) == null;
     }
 
     @Override
     public void onProductClick(Product product) {
-        Intent intent = new Intent(this, ProductActivity.class);
-        intent.putExtra(Product.TAG, product);
-        startActivity(intent);
+        if (isPortraitMode()) {
+            Intent intent = new Intent(this, ProductActivity.class);
+            intent.putExtra(Product.TAG, product);
+            startActivity(intent);
+        } else {
+            ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
+            fragment.populate(product);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            ((FrameLayout) findViewById(R.id.activity_main_layout_right)).setLayoutParams(layoutParams);
+        }
     }
 }
