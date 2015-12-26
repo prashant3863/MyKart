@@ -27,7 +27,7 @@ public class ProductActivity extends AppCompatActivity implements ProductDetailF
 
     @Override
     public void onAddToCartButtonClick(Product product) {
-        Cart cart = Cart.getInstance();
+        Cart cart = Cart.getInstance(this);
         cart.addProduct(product);
     }
 }
