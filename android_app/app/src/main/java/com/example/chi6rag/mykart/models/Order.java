@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class Order {
     public static final String TAG = "com.example.chi6rag.mykart.models.ORDER_SHARED_PREFERENCES_TAG";
     public static final String CURRENT_NUMBER_KEY = "com.example.chi6rag.mykart.models.ORDER_CURRENT_KEY";
+    public static final String CURRENT_TOKEN = "com.example.chi6rag.mykart.models.ORDER_CURRENT_TOKEN";
     public String number;
     public String token;
     Integer id;

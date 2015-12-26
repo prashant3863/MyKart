@@ -18,15 +18,13 @@ import java.net.URL;
 public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
     private static final String POST = "POST";
     private final Cart cart;
-    private final AddProductToCartTask successCallback;
     private final Context context;
     private final SharedPreferences sharedPreferences;
 
-    public CreateOrderTask(Context context, AddProductToCartTask successCallback) {
+    public CreateOrderTask(Context context) {
         this.context = context;
         this.sharedPreferences = context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
         this.cart = Cart.getInstance(context);
-        this.successCallback = successCallback;
     }
 
     @Override
@@ -49,11 +47,9 @@ public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
     protected void onPostExecute(Order order) {
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
         sharedPreferencesEditor.putString(Order.CURRENT_NUMBER_KEY, order.number);
+        sharedPreferencesEditor.putString(Order.CURRENT_TOKEN, order.token);
         sharedPreferencesEditor.commit();
         this.cart.orderNumber = order.number;
         this.cart.orderToken = order.token;
-        if (order != null) {
-            successCallback.execute();
-        }
     }
 }

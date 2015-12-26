@@ -1,7 +1,6 @@
 package com.example.chi6rag.mykart.models;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.example.chi6rag.mykart.async_tasks.AddProductToCartTask;
 import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
@@ -31,19 +30,13 @@ public class Cart {
     public void addProduct(Product product) {
         this.orderNumber = fetchCurrentOrderNumber();
         if (this.orderNumber == null) {
-            new CreateOrderTask(
-                    this.context,
-                    addProductSuccessCallback(product)
-            ).execute();
+            new CreateOrderTask(this.context).execute();
         }
+        new AddProductToCartTask(context, product, cartInstance).execute();
     }
 
     public void addLineItem(LineItem lineItem) {
         this.lineItems.add(lineItem);
-    }
-
-    private AddProductToCartTask addProductSuccessCallback(Product product) {
-        return new AddProductToCartTask(context, product, cartInstance);
     }
 
     private String fetchCurrentOrderNumber() {

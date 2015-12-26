@@ -2,6 +2,7 @@ package com.example.chi6rag.mykart.async_tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.LineItem;
@@ -45,6 +46,7 @@ public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
     @Override
     protected void onPostExecute(LineItem lineItem) {
         cart.addLineItem(lineItem);
+        Log.d("chi6rag", "Added line item to cart");
     }
 
     private String buildUrlString(String orderNumber, Integer productId, String orderToken) {
