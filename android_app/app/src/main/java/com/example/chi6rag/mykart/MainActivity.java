@@ -1,7 +1,9 @@
 package com.example.chi6rag.mykart;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
+import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.models.Cart;
+import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.CategoryResource;
 import com.example.chi6rag.mykart.network.ConnectionDetector;
@@ -22,7 +27,9 @@ import com.example.chi6rag.mykart.network.ProductCategory;
 public class MainActivity extends AppCompatActivity implements
         LandingFragment.OnLandingScreenCategoryClickListener,
         ProductCategoriesFragment.OnProductCategoryClickListener,
-        ProductsFragment.OnProductClickListener {
+        ProductsFragment.OnProductClickListener,
+        ProductDetailFragment.OnInteractionListener {
+
     public static final String TAG_ACTIVITY_MAIN_LAYOUT_RIGHT = "tag_activity_main_layout_right";
     public static final String TAG_ACTIVITY_MAIN_LAYOUT = "tag_activity_main_layout";
     private DrawerLayout mDrawerLayout;
@@ -192,5 +199,11 @@ public class MainActivity extends AppCompatActivity implements
             ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
             fragment.populate(product);
         }
+    }
+
+    @Override
+    public void onAddToCartButtonClick(Product product) {
+        Cart cart = Cart.getInstance();
+        cart.addProduct(product);
     }
 }

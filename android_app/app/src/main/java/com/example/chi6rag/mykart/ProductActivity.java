@@ -1,17 +1,12 @@
 package com.example.chi6rag.mykart;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.example.chi6rag.mykart.models.Order;
+import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.Product;
 
-public class ProductActivity extends AppCompatActivity {
-    private String host;
-    private String port;
-
+public class ProductActivity extends AppCompatActivity implements ProductDetailFragment.OnInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +25,9 @@ public class ProductActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private String fetchCurrentOrderNumber() {
-        SharedPreferences orderSharedPreferences = getSharedPreferences(Order.TAG, MODE_PRIVATE);
-        return orderSharedPreferences.getString(Order.CURRENT_NUMBER_KEY, null);
+    @Override
+    public void onAddToCartButtonClick(Product product) {
+        Cart cart = Cart.getInstance();
+        cart.addProduct(product);
     }
 }

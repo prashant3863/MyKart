@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,21 @@ public class ProductDetailFragment extends Fragment {
     private Button addToCartButton;
     private String host;
     private String port;
+    private OnInteractionListener addToCartButtonListener;
+
+    public interface OnInteractionListener {
+        public void onAddToCartButtonClick(Product product);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.addToCartButtonListener = ((OnInteractionListener) activity);
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnInteractionListener");
+        }
+    }
 
     @Nullable
     @Override
@@ -45,21 +61,17 @@ public class ProductDetailFragment extends Fragment {
         if (product != null) {
             populate(product);
         } else {
-            Log.d("chi6rag", "banjar");
+            Log.d("chi6rag", "No Product Selected");
         }
 
+        final Product productToAddToCart = product;
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToCartButtonListener.onAddToCartButtonClick(productToAddToCart);
+            }
+        });
 
-//        final Product product = getArguments().getParcelable(Product.TAG);
-//
-////        addToCartButton.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                String orderNumber = fetchCurrentOrderNumber();
-////                if (orderNumber == null) {
-////                    new CreateOrderTask(getApplicationContext()).execute();
-////                }
-////            }
-////        });
         return fragmentView;
     }
 
