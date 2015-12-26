@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.Order;
 import com.google.gson.Gson;
 
@@ -15,14 +16,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
-
+    private static final String POST = "POST";
+    private final Cart cart;
+    private final AddProductToCartTask successCallback;
+    private final Context context;
     private final SharedPreferences sharedPreferences;
 
-    public CreateOrderTask(Context context) {
-        sharedPreferences = context.getSharedPreferences(Order.TAG, context.MODE_PRIVATE);
+    public CreateOrderTask(Context context, AddProductToCartTask successCallback) {
+        this.context = context;
+        this.sharedPreferences = context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
+        this.cart = Cart.getInstance(context);
+        this.successCallback = successCallback;
     }
-
-    private static final String POST = "POST";
 
     @Override
     protected Order doInBackground(Void... params) {
@@ -45,5 +50,10 @@ public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
         sharedPreferencesEditor.putString(Order.CURRENT_NUMBER_KEY, order.number);
         sharedPreferencesEditor.commit();
+        this.cart.orderNumber = order.number;
+        this.cart.orderToken = order.token;
+        if (order != null) {
+            successCallback.execute();
+        }
     }
 }

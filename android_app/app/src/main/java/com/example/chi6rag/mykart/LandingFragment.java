@@ -39,6 +39,7 @@ public class LandingFragment extends Fragment {
         menSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println();
                 listener.onLandingScreenCategoryClick(CategoryResource.MEN);
             }
         });
