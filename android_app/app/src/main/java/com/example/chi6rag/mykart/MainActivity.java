@@ -167,11 +167,15 @@ public class MainActivity extends AppCompatActivity implements
                     .replace(R.id.activity_main_layout_right, new ProductDetailFragment(), TAG_ACTIVITY_MAIN_LAYOUT_RIGHT)
                     .commit();
 
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-            ((FrameLayout) findViewById(R.id.activity_main_layout_right)).setLayoutParams(layoutParams);
+            increaseWeightOfDetailFragmentContainer();
         }
+    }
+
+    private void increaseWeightOfDetailFragmentContainer() {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, 1.5f);
+        ((FrameLayout) findViewById(R.id.activity_main_layout_right)).setLayoutParams(layoutParams);
     }
 
     private boolean isPortraitMode() {
@@ -187,11 +191,6 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
             fragment.populate(product);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-            ((FrameLayout) findViewById(R.id.activity_main_layout_right)).setLayoutParams(layoutParams);
         }
     }
 }

@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        style="@style/dont_miss_out_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dont_miss_out_logo"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/select_a_category_text_view"
-        style="@style/select_a_category_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/select_category"
-        android:textAlignment="center"/>
-
-    <LinearLayout
-        android:id="@+id/gender_selection_container"
-        style="@style/gender_selection_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:id="@+id/men_section"
-            android:layout_width="wrap_content"
+        <ImageView
+            style="@style/dont_miss_out_banner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1">
+            android:background="@drawable/dont_miss_out_logo"/>
 
-            <ImageView
-                android:id="@+id/men_selection_image"
-                style="@style/gender_selection_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/men_category"/>
-
-            <TextView
-                style="@style/gender_selection_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/men_selection_image"
-                android:text="Men"
-                android:textAlignment="center"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/women_section"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/select_a_category_text_view"
+            style="@style/select_a_category_text_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_weight="1">
+            android:fontFamily="sans-serif-light"
+            android:text="@string/select_category"
+            android:textAlignment="center"/>
 
-            <ImageView
-                android:id="@+id/women_selection_image"
-                style="@style/gender_selection_image"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/gender_selection_container"
+            style="@style/gender_selection_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/men_section"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/women_category"/>
+                android:layout_marginRight="4dp"
+                android:layout_weight="1">
 
-            <TextView
-                style="@style/gender_selection_text"
-                android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/men_selection_image"
+                    style="@style/gender_selection_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/men_category"/>
+
+                <TextView
+                    style="@style/gender_selection_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/men_selection_image"
+                    android:text="Men"
+                    android:textAlignment="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/women_section"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/women_selection_image"
-                android:text="Women"
-                android:textAlignment="center"/>
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/women_selection_image"
+                    style="@style/gender_selection_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/women_category"/>
+
+                <TextView
+                    style="@style/gender_selection_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/women_selection_image"
+                    android:text="Women"
+                    android:textAlignment="center"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
