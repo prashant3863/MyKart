@@ -25,13 +25,14 @@
         style="@style/product_list_item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Red Dress"/>
+        tools:text="Red Dress"
+        android:transitionName="product_list_item_name" />
 
     <TextView
         android:id="@+id/product_list_item_price"
         style="@style/product_list_item_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Rs. 9,999"/>
+        tools:text="Rs. 9,999" />
 
 </LinearLayout>

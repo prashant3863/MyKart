@@ -1,10 +1,12 @@
 package com.example.chi6rag.mykart;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -195,18 +197,32 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(this, ProductActivity.class);
             intent.putExtra(Product.TAG, product);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                        view.findViewById(R.id.product_list_item_image), "product_list_item_image");
-                startActivity(intent, options.toBundle());
-            }
-            else {
+            if (isDeviceVersionAbove21()) {
+                startActivityWithAnimation(view, intent);
+            } else {
                 startActivity(intent);
             }
         } else {
             ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
             fragment.populate(product);
         }
+    }
+
+    private boolean isDeviceVersionAbove21() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void startActivityWithAnimation(View view, Intent intent) {
+        View productListItemImage = view.findViewById(R.id.product_list_item_image);
+        View productListItemName = view.findViewById(R.id.product_list_item_name);
+
+        Pair<View, String> imageSharedElement = Pair.create(productListItemImage, "product_list_item_image");
+        Pair<View, String> nameSharedElement = Pair.create(productListItemName, "product_list_item_name");
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                imageSharedElement, nameSharedElement);
+        startActivity(intent, options.toBundle());
     }
 
     @Override

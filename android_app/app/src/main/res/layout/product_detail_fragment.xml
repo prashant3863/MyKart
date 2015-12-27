@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/product_image"
-        tools:text="Skinny-Fit Big Pony Polo" />
+        tools:text="Skinny-Fit Big Pony Polo"
+        android:transitionName="product_list_item_name"/>
 
     <TextView
         android:id="@+id/product_price"
@@ -27,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/product_name"
-        tools:text="Rs. 14,999" />
+        tools:text="Rs. 14,999"
+        android:transitionName="product_list_item_price" />
 
     <TextView
         android:id="@+id/product_description"
