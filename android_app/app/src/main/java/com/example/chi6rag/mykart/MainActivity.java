@@ -132,10 +132,6 @@ public class MainActivity extends AppCompatActivity implements
         mActionBarDrawerToggle.syncState();
     }
 
-    private boolean hasClickedNavigationDrawerIcon(MenuItem item) {
-        return mActionBarDrawerToggle.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onLandingScreenCategoryClick(String gender) {
         ConnectionDetector connectionDetector = new ConnectionDetector(this);
@@ -155,15 +151,6 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
     }
 
-    private void showNotConnectedToInternetAlertDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder
-                .setTitle("Network Error")
-                .setMessage("No Internet Connection")
-                .create()
-                .show();
-    }
-
     @Override
     public void onProductCategoryClick(ProductCategory productCategory) {
         Bundle bundle = new Bundle();
@@ -181,6 +168,41 @@ public class MainActivity extends AppCompatActivity implements
             handleProductCategoryClickForLandscapeMode(productsFragment);
             increaseWeightOfDetailFragmentContainer();
         }
+    }
+
+    @Override
+    public void onProductClick(View view, Product product) {
+        if (isPortraitMode()) {
+            Intent intent = new Intent(this, ProductActivity.class);
+            intent.putExtra(Product.TAG, product);
+
+            if (isDeviceVersionAbove21()) {
+                startActivityWithAnimation(view, intent);
+            } else {
+                startActivity(intent);
+            }
+        } else {
+            ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager()
+                    .findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
+            if (fragment != null)
+                fragment.populate(product);
+        }
+    }
+
+    @Override
+    public void onAddToCartButtonClick(final Product product) {
+        Order.getCurrentInstance(this, new Callback<Order>() {
+            @Override
+            public void onSuccess(Order fetchedOrder) {
+                Cart cart = Cart.getInstance(MainActivity.this, fetchedOrder);
+                cart.addProduct(product);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     private void handleProductCategoryClickForLandscapeMode(ProductsFragment productsFragment) {
@@ -205,25 +227,6 @@ public class MainActivity extends AppCompatActivity implements
         return findViewById(R.id.activity_main_layout_right) == null;
     }
 
-    @Override
-    public void onProductClick(View view, Product product) {
-        if (isPortraitMode()) {
-            Intent intent = new Intent(this, ProductActivity.class);
-            intent.putExtra(Product.TAG, product);
-
-            if (isDeviceVersionAbove21()) {
-                startActivityWithAnimation(view, intent);
-            } else {
-                startActivity(intent);
-            }
-        } else {
-            ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager()
-                    .findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
-            if (fragment != null)
-                fragment.populate(product);
-        }
-    }
-
     private boolean isDeviceVersionAbove21() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
@@ -241,19 +244,16 @@ public class MainActivity extends AppCompatActivity implements
         startActivity(intent, options.toBundle());
     }
 
-    @Override
-    public void onAddToCartButtonClick(final Product product) {
-        Order.getCurrentInstance(this, new Callback<Order>() {
-            @Override
-            public void onSuccess(Order fetchedOrder) {
-                Cart cart = Cart.getInstance(MainActivity.this, fetchedOrder);
-                cart.addProduct(product);
-            }
+    private void showNotConnectedToInternetAlertDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder
+                .setTitle("Network Error")
+                .setMessage("No Internet Connection")
+                .create()
+                .show();
+    }
 
-            @Override
-            public void onFailure() {
-
-            }
-        });
+    private boolean hasClickedNavigationDrawerIcon(MenuItem item) {
+        return mActionBarDrawerToggle.onOptionsItemSelected(item);
     }
 }
