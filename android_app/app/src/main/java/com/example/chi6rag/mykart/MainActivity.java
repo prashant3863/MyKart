@@ -10,6 +10,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.bringToFront();
 
         LandingFragment landingFragment = new LandingFragment();
         getSupportFragmentManager()
@@ -89,13 +93,20 @@ public class MainActivity extends AppCompatActivity implements
 
                 Bundle fragmentArguments = new Bundle();
                 fragmentArguments.putParcelable(ProductCategory.TAG, productCategory);
+
                 ProductsFragment productsFragment = new ProductsFragment();
                 productsFragment.setArguments(fragmentArguments);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_main_layout, productsFragment)
-                        .commit();
+                if (isPortraitMode()) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_main_layout, productsFragment)
+                            .commit();
+                } else {
+                    handleProductCategoryClickForLandscapeMode(productsFragment);
+                    increaseWeightOfDetailFragmentContainer();
+                }
+
                 mDrawerLayout.closeDrawer(mNavigationDrawer);
                 return true;
             }
@@ -167,17 +178,20 @@ public class MainActivity extends AppCompatActivity implements
                     .replace(R.id.activity_main_layout, productsFragment)
                     .commit();
         } else {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_main_layout, productsFragment, TAG_ACTIVITY_MAIN_LAYOUT)
-                    .commit();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.activity_main_layout_right, new ProductDetailFragment(), TAG_ACTIVITY_MAIN_LAYOUT_RIGHT)
-                    .commit();
-
+            handleProductCategoryClickForLandscapeMode(productsFragment);
             increaseWeightOfDetailFragmentContainer();
         }
+    }
+
+    private void handleProductCategoryClickForLandscapeMode(ProductsFragment productsFragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout, productsFragment, TAG_ACTIVITY_MAIN_LAYOUT)
+                .commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout_right, new ProductDetailFragment(), TAG_ACTIVITY_MAIN_LAYOUT_RIGHT)
+                .commit();
     }
 
     private void increaseWeightOfDetailFragmentContainer() {
@@ -203,8 +217,10 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         } else {
-            ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
-            fragment.populate(product);
+            ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager()
+                    .findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
+            if (fragment != null)
+                fragment.populate(product);
         }
     }
 

@@ -2,17 +2,22 @@ package com.example.chi6rag.mykart;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 
 import com.example.chi6rag.mykart.async_tasks.Callback;
 import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 
-public class ProductActivity extends AppCompatActivity implements ProductDetailFragment.OnInteractionListener {
+public class ProductActivity extends AppCompatActivity implements
+        ProductDetailFragment.OnInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        setupActionBar();
 
         Product product = getIntent().getParcelableExtra(Product.TAG);
         Bundle bundle = new Bundle();
@@ -41,5 +46,22 @@ public class ProductActivity extends AppCompatActivity implements ProductDetailF
 
             }
         });
+    }
+
+    private void setupActionBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.bringToFront();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+            default:
+        }
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <style name="navigation_drawer_shop_for_text">
+                <item name="android:layout_marginTop">24dp</item>
                 <item name="android:paddingLeft">
                         ?android:attr/expandableListPreferredItemPaddingLeft
                 </item>
