@@ -2,6 +2,7 @@ package com.example.chi6rag.mykart;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.Product;

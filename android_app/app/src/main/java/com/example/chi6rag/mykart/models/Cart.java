@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.chi6rag.mykart.async_tasks.AddProductToCartTask;
+import com.example.chi6rag.mykart.async_tasks.Callback;
 import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
 
 import java.util.ArrayList;
@@ -23,22 +24,13 @@ public class Cart {
         return cartInstance;
     }
 
-    private Cart(Context context) {
-        this.context = context;
-        this.lineItems = new ArrayList<LineItem>();
-    }
-
     public void addProduct(final Product product) {
-        clearSharedPreferences();
         this.orderNumber = fetchCurrentOrderNumber();
-        if (this.orderNumber == null) {
-            new CreateOrderTask(this.context, new CreateOrderTask.Callback() {
+        if (this.orderNumber == null || this.orderToken == null) {
+            new CreateOrderTask(new Callback<Order>() {
                 @Override
                 public void onSuccess(Order order) {
-                    saveOrderTokenToSharedPreferences(order);
-                    saveOrderNumberToSharedPreferences(order);
-                    orderNumber = order.number;
-                    orderToken = order.token;
+                    saveOrderDetails(order);
                     executeAddProductToCartTask(product);
                 }
 
@@ -47,18 +39,33 @@ public class Cart {
                     Log.d("chi6rag", "Failed to create an order");
                 }
             }).execute();
+        } else {
+            executeAddProductToCartTask(product);
         }
     }
 
-    private void executeAddProductToCartTask(Product product) {
+    private Cart(Context context) {
+        this.context = context;
+        this.lineItems = new ArrayList<LineItem>();
+    }
+
+    private void saveOrderDetails(Order order) {
+        saveOrderTokenToSharedPreferences(order);
+        saveOrderNumberToSharedPreferences(order);
+        orderNumber = order.number;
+        orderToken = order.token;
+    }
+
+    private void executeAddProductToCartTask(final Product product) {
         new AddProductToCartTask(
                 orderNumber,
                 orderToken,
                 product,
-                new AddProductToCartTask.Callback() {
+                new Callback<LineItem>() {
                     @Override
                     public void onSuccess(LineItem lineItem) {
                         cartInstance.addLineItem(lineItem);
+                        Log.d("chi6rag", orderNumber + ", " + orderToken + ": " + lineItems.size());
                     }
 
                     @Override
@@ -77,13 +84,6 @@ public class Cart {
     private void saveOrderNumberToSharedPreferences(Order order) {
         this.context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
                 .putString(Order.CURRENT_NUMBER_KEY, order.number)
-                .commit();
-    }
-
-    private void clearSharedPreferences() {
-        this.context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
-                .remove(Order.CURRENT_NUMBER_KEY)
-                .remove(Order.CURRENT_TOKEN)
                 .commit();
     }
 

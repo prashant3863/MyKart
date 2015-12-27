@@ -20,13 +20,10 @@ public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
     private final String orderToken;
     private final Callback callback;
 
-    public interface Callback {
-        void onSuccess(LineItem lineItem);
-
-        void onFailure();
-    }
-
-    public AddProductToCartTask(String orderNumber, String orderToken, Product product, Callback callback) {
+    public AddProductToCartTask(String orderNumber,
+                                String orderToken,
+                                Product product,
+                                Callback<LineItem> callback) {
         this.orderNumber = orderNumber;
         this.orderToken = orderToken;
         this.product = product;
