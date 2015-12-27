@@ -1,10 +1,7 @@
 package com.example.chi6rag.mykart.async_tasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.LineItem;
 import com.example.chi6rag.mykart.models.Product;
 import com.google.gson.Gson;
@@ -19,16 +16,26 @@ import java.net.URL;
 public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
     private static final String POST = "POST";
     private final Product product;
-    private final Cart cart;
+    private final String orderNumber;
+    private final String orderToken;
+    private final Callback callback;
 
-    public AddProductToCartTask(Context context, Product product, Cart cart) {
+    public interface Callback {
+        void onSuccess(LineItem lineItem);
+
+        void onFailure();
+    }
+
+    public AddProductToCartTask(String orderNumber, String orderToken, Product product, Callback callback) {
+        this.orderNumber = orderNumber;
+        this.orderToken = orderToken;
         this.product = product;
-        this.cart = cart;
+        this.callback = callback;
     }
 
     @Override
     protected LineItem doInBackground(Void... params) {
-        String urlString = buildUrlString(cart.orderNumber, product.id, cart.orderToken);
+        String urlString = buildUrlString(this.orderNumber, product.id, this.orderToken);
         try {
             URL url = new URL(urlString);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -45,8 +52,11 @@ public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
 
     @Override
     protected void onPostExecute(LineItem lineItem) {
-        cart.addLineItem(lineItem);
-        Log.d("chi6rag", "Added line item to cart");
+        if (lineItem != null) {
+            this.callback.onSuccess(lineItem);
+        } else {
+            this.callback.onFailure();
+        }
     }
 
     private String buildUrlString(String orderNumber, Integer productId, String orderToken) {

@@ -20,9 +20,17 @@ public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
     private final Cart cart;
     private final Context context;
     private final SharedPreferences sharedPreferences;
+    private final Callback callback;
 
-    public CreateOrderTask(Context context) {
+    public interface Callback {
+        void onSuccess(Order order);
+
+        void onFailure();
+    }
+
+    public CreateOrderTask(Context context, Callback callback) {
         this.context = context;
+        this.callback = callback;
         this.sharedPreferences = context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
         this.cart = Cart.getInstance(context);
     }
@@ -45,11 +53,10 @@ public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
 
     @Override
     protected void onPostExecute(Order order) {
-        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-        sharedPreferencesEditor.putString(Order.CURRENT_NUMBER_KEY, order.number);
-        sharedPreferencesEditor.putString(Order.CURRENT_TOKEN, order.token);
-        sharedPreferencesEditor.commit();
-        this.cart.orderNumber = order.number;
-        this.cart.orderToken = order.token;
+        if (order != null) {
+            callback.onSuccess(order);
+        } else {
+            callback.onFailure();
+        }
     }
 }
