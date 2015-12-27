@@ -13,8 +13,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
+import com.example.chi6rag.mykart.async_tasks.Callback;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
 import com.example.chi6rag.mykart.models.Cart;
+import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.CategoryResource;
 import com.example.chi6rag.mykart.network.ConnectionDetector;
@@ -198,8 +200,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onAddToCartButtonClick(Product product) {
-        Cart cart = Cart.getInstance(this);
-        cart.addProduct(product);
+    public void onAddToCartButtonClick(final Product product) {
+        Order.getCurrentInstance(this, new Callback<Order>() {
+            @Override
+            public void onSuccess(Order fetchedOrder) {
+                Cart cart = Cart.getInstance(MainActivity.this, fetchedOrder);
+                cart.addProduct(product);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 }

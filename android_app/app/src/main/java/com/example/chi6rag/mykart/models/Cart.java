@@ -5,67 +5,45 @@ import android.util.Log;
 
 import com.example.chi6rag.mykart.async_tasks.AddProductToCartTask;
 import com.example.chi6rag.mykart.async_tasks.Callback;
-import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
     private static Cart cartInstance;
-    public String orderNumber;
-    public String orderToken;
-    private List<LineItem> lineItems;
-    private final Context context;
 
-    public static Cart getInstance(Context context) {
+    private final Order order;
+    private final Context context;
+    private List<LineItem> lineItems;
+
+    public static Cart getInstance(Context context, Order order) {
         if (cartInstance == null) {
-            cartInstance = new Cart(context);
+            cartInstance = new Cart(context, order);
         }
         return cartInstance;
     }
 
     public void addProduct(final Product product) {
-        this.orderNumber = fetchCurrentOrderNumber();
-        if (this.orderNumber == null || this.orderToken == null) {
-            new CreateOrderTask(new Callback<Order>() {
-                @Override
-                public void onSuccess(Order order) {
-                    saveOrderDetails(order);
-                    executeAddProductToCartTask(product);
-                }
-
-                @Override
-                public void onFailure() {
-                    Log.d("chi6rag", "Failed to create an order");
-                }
-            }).execute();
-        } else {
+        if (this.order.isValid()) {
             executeAddProductToCartTask(product);
         }
     }
 
-    private Cart(Context context) {
+    private Cart(Context context, Order order) {
         this.context = context;
+        this.order = order;
         this.lineItems = new ArrayList<LineItem>();
-    }
-
-    private void saveOrderDetails(Order order) {
-        saveOrderTokenToSharedPreferences(order);
-        saveOrderNumberToSharedPreferences(order);
-        orderNumber = order.number;
-        orderToken = order.token;
     }
 
     private void executeAddProductToCartTask(final Product product) {
         new AddProductToCartTask(
-                orderNumber,
-                orderToken,
+                order.number,
+                order.token,
                 product,
                 new Callback<LineItem>() {
                     @Override
                     public void onSuccess(LineItem lineItem) {
                         cartInstance.addLineItem(lineItem);
-                        Log.d("chi6rag", orderNumber + ", " + orderToken + ": " + lineItems.size());
                     }
 
                     @Override
@@ -75,23 +53,7 @@ public class Cart {
                 }).execute();
     }
 
-    private void saveOrderTokenToSharedPreferences(Order order) {
-        this.context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
-                .putString(Order.CURRENT_TOKEN, order.token)
-                .commit();
-    }
-
-    private void saveOrderNumberToSharedPreferences(Order order) {
-        this.context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
-                .putString(Order.CURRENT_NUMBER_KEY, order.number)
-                .commit();
-    }
-
     private void addLineItem(LineItem lineItem) {
         this.lineItems.add(lineItem);
-    }
-
-    private String fetchCurrentOrderNumber() {
-        return Order.current_number(this.context);
     }
 }
