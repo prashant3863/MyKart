@@ -2,7 +2,9 @@ package com.example.chi6rag.mykart;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -188,11 +190,19 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onProductClick(Product product) {
+    public void onProductClick(View view, Product product) {
         if (isPortraitMode()) {
             Intent intent = new Intent(this, ProductActivity.class);
             intent.putExtra(Product.TAG, product);
-            startActivity(intent);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        view.findViewById(R.id.product_list_item_image), "product_list_item_image");
+                startActivity(intent, options.toBundle());
+            }
+            else {
+                startActivity(intent);
+            }
         } else {
             ProductDetailFragment fragment = (ProductDetailFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACTIVITY_MAIN_LAYOUT_RIGHT);
             fragment.populate(product);

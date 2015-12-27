@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        tools:src="@drawable/cap_sleeve_cutout_neckline_sheath_1"/>
+        tools:src="@drawable/cap_sleeve_cutout_neckline_sheath_1"
+        android:transitionName="product_list_item_image" />
 
     <TextView
         android:id="@+id/product_list_item_name"

@@ -20,7 +20,7 @@ public class ProductsFragment extends Fragment {
     private OnProductClickListener listener;
 
     public interface OnProductClickListener {
-        public void onProductClick(Product product);
+        void onProductClick(View view, Product product);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ProductsFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Product product = productListAdapter.findProductByPosition(position);
-                        listener.onProductClick(product);
+                        listener.onProductClick(view, product);
                     }
                 }));
         setActionBarTitleAs(productCategory.name);

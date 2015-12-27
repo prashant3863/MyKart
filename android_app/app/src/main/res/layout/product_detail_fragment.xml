@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        tools:src="@drawable/skinny_fit_big_pony_polo_1" />
+        tools:src="@drawable/skinny_fit_big_pony_polo_1"
+        android:transitionName="product_list_item_image" />
 
     <TextView
         android:id="@+id/product_name"
