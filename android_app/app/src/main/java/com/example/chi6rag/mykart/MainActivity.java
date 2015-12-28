@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -132,7 +133,27 @@ public class MainActivity extends AppCompatActivity implements
                 mDrawerLayout.openDrawer(mNavigationDrawer);
             }
         }
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                handleAddToCartClick();
+        }
+        return false;
+    }
+
+    private void handleAddToCartClick() {
+        Order.getCurrentInstance(this, new Callback<Order>() {
+            @Override
+            public void onSuccess(Order fetchedOrder) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                intent.putExtra(Order.TAG, fetchedOrder);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("chi6rag", "show internet exception alert");
+            }
+        });
     }
 
     @Override

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.chi6rag.mykart.async_tasks.Callback;
@@ -30,6 +32,13 @@ public class ProductActivity extends AppCompatActivity implements
                 .beginTransaction()
                 .replace(R.id.product_container, productDetailFragment)
                 .commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override

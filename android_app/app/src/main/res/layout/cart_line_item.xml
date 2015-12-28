@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cart_line_item_transparent_container"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="#00FFFFFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/cart_line_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:layout_weight="0">
+
+        <ImageView
+            android:id="@+id/cart_line_item_image"
+            tools:src="@drawable/line_item_image_placeholder"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/cart_line_item_name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Skinny Fit Big Pony Polo"
+            android:layout_toRightOf="@id/cart_line_item_image"
+            android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:id="@+id/cart_line_item_quantity"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Quantity: 2"
+            android:layout_toRightOf="@id/cart_line_item_image"
+            android:layout_below="@id/cart_line_item_name"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:id="@+id/cart_line_item_price"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Price Per Item: Rs. 12,999"
+            android:layout_toRightOf="@id/cart_line_item_image"
+            android:layout_below="@id/cart_line_item_quantity"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
