@@ -2,9 +2,11 @@ package com.example.chi6rag.mykart;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +25,9 @@ import android.widget.LinearLayout;
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
 import com.example.chi6rag.mykart.async_tasks.Callback;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 import com.example.chi6rag.mykart.models.Cart;
+import com.example.chi6rag.mykart.models.LineItem;
 import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.CategoryResource;
@@ -227,11 +231,15 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddToCartButtonClick(final Product product) {
+        AddToCartProgressDialog dialog = new AddToCartProgressDialog(this);
+        final ProgressDialog progressDialog = dialog.build();
+        final UIExecutor<LineItem> uiExecutor = dialog.buildExecutor(progressDialog);
+
         Order.getCurrentInstance(this, new Callback<Order>() {
             @Override
             public void onSuccess(Order fetchedOrder) {
                 Cart cart = Cart.getInstance(MainActivity.this, fetchedOrder);
-                cart.addProduct(product);
+                cart.addProduct(product, uiExecutor);
             }
 
             @Override

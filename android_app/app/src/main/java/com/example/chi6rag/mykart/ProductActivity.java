@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.chi6rag.mykart.async_tasks.Callback;
+import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 import com.example.chi6rag.mykart.models.Cart;
+import com.example.chi6rag.mykart.models.LineItem;
 import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.models.Product;
 
@@ -44,11 +47,15 @@ public class ProductActivity extends AppCompatActivity implements
 
     @Override
     public void onAddToCartButtonClick(final Product product) {
+        AddToCartProgressDialog dialog = new AddToCartProgressDialog(this);
+        final ProgressDialog progressDialog = dialog.build();
+        final UIExecutor<LineItem> uiExecutor = dialog.buildExecutor(progressDialog);
+
         Order.getCurrentInstance(this, new Callback<Order>() {
             @Override
             public void onSuccess(Order fetchedOrder) {
                 Cart cart = Cart.getInstance(ProductActivity.this, fetchedOrder);
-                cart.addProduct(product);
+                cart.addProduct(product, uiExecutor);
             }
 
             @Override
@@ -67,7 +74,7 @@ public class ProductActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
             case R.id.action_home:
