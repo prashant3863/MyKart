@@ -7,12 +7,13 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:background="#FFFFFF"
                   android:orientation="vertical">
 
         <ImageView
             style="@style/dont_miss_out_banner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:background="@drawable/dont_miss_out_logo"/>
 
         <TextView
@@ -24,62 +25,53 @@
             android:text="@string/select_category"
             android:textAlignment="center"/>
 
-        <LinearLayout
-            android:id="@+id/gender_selection_container"
-            style="@style/gender_selection_container"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/men_section"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:padding="8dp">
 
-            <RelativeLayout
-                android:id="@+id/men_section"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/men_selection_image"
+                style="@style/gender_selection_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/shop_men_banner"/>
+
+            <TextView
+                style="@style/gender_selection_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:layout_weight="1">
+                android:layout_alignBottom="@id/men_selection_image"
+                android:text="Men"
+                android:textAlignment="textEnd"
+                android:gravity="end"/>
 
-                <ImageView
-                    android:id="@+id/men_selection_image"
-                    style="@style/gender_selection_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/men_category"/>
+        </RelativeLayout>
 
-                <TextView
-                    style="@style/gender_selection_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/men_selection_image"
-                    android:text="Men"
-                    android:textAlignment="center"/>
+        <RelativeLayout
+            android:id="@+id/women_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
 
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/women_selection_image"
+                style="@style/gender_selection_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/shop_women_banner"/>
 
-            <RelativeLayout
-                android:id="@+id/women_section"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/gender_selection_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1">
+                android:layout_alignBottom="@id/women_selection_image"
+                android:text="Women"
+                android:textAlignment="textStart"
+                android:gravity="start" />
 
-                <ImageView
-                    android:id="@+id/women_selection_image"
-                    style="@style/gender_selection_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/women_category"/>
-
-                <TextView
-                    style="@style/gender_selection_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/women_selection_image"
-                    android:text="Women"
-                    android:textAlignment="center"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>
