@@ -3,6 +3,7 @@ package com.example.chi6rag.mykart.async_tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -17,20 +18,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FetchOrderDetailsTask extends AsyncTask<Void, Void, Order> {
+public class FetchOrderDetailsForCartTask extends AsyncTask<Void, Void, Order> {
     private final Order order;
     private final Callback<Order> orderCallback;
     private final ProgressBar progressBar;
     private final ListView cartLineItemsList;
+    private final Button cartCheckoutButton;
     private Context context;
     private ConnectionDetector connectionDetector;
 
-    public FetchOrderDetailsTask(Context context, Order order, ProgressBar progressBar,
-                                 ListView cartLineItemsList, Callback<Order> orderCallback) {
+    public FetchOrderDetailsForCartTask(Context context, Order order, ProgressBar progressBar,
+                                        ListView cartLineItemsList, Button cartCheckoutButton,
+                                        Callback<Order> orderCallback) {
         this.context = context;
         this.order = order;
         this.progressBar = progressBar;
         this.cartLineItemsList = cartLineItemsList;
+        this.cartCheckoutButton = cartCheckoutButton;
         this.orderCallback = orderCallback;
         this.connectionDetector = new ConnectionDetector(this.context);
     }
@@ -63,11 +67,16 @@ public class FetchOrderDetailsTask extends AsyncTask<Void, Void, Order> {
         if (order.isValid() && (order.lineItems != null)) {
             cancelProgressBarAnimation();
             removeProgressBar();
+            showCheckoutButton();
             showLineItemsList();
             this.orderCallback.onSuccess(order);
         } else {
             this.orderCallback.onFailure();
         }
+    }
+
+    private void showCheckoutButton() {
+        this.cartCheckoutButton.setVisibility(Button.VISIBLE);
     }
 
     private void showLineItemsList() {

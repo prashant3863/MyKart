@@ -7,18 +7,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.chi6rag.mykart.adapters.LineItemListAdapter;
 import com.example.chi6rag.mykart.async_tasks.Callback;
-import com.example.chi6rag.mykart.async_tasks.FetchOrderDetailsTask;
+import com.example.chi6rag.mykart.async_tasks.FetchOrderDetailsForCartTask;
 import com.example.chi6rag.mykart.models.Order;
 
 public class CartActivity extends AppCompatActivity {
+    private Toolbar toolbar;
 
-    private static final String TOTAL_PRICE = "Total Price: \n";
+    private static final String TOTAL = "Total: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +29,16 @@ public class CartActivity extends AppCompatActivity {
 
         final ListView cartLineItemsList = (ListView) findViewById(R.id.cart_line_items_list);
         ProgressBar cartProgressBar = ((ProgressBar) findViewById(R.id.cart_progress_bar));
-        final TextView cartTotalPrice = ((TextView) findViewById(R.id.cart_total_price));
+        Button cartCheckoutButton = (Button) findViewById(R.id.cart_checkout_button);
 
         Order incompleteOrder = getIntent().getParcelableExtra(Order.TAG);
-        new FetchOrderDetailsTask(this, incompleteOrder, cartProgressBar, cartLineItemsList, new Callback<Order>() {
+        new FetchOrderDetailsForCartTask(this, incompleteOrder, cartProgressBar, cartLineItemsList,
+                cartCheckoutButton, new Callback<Order>() {
             @Override
             public void onSuccess(Order order) {
                 LineItemListAdapter lineItemListAdapter = new LineItemListAdapter(CartActivity.this, order.lineItems);
                 cartLineItemsList.setAdapter(lineItemListAdapter);
-                cartTotalPrice.setText(TOTAL_PRICE + order.displayTotal);
+                toolbar.setTitle(TOTAL + order.displayTotal);
             }
 
             @Override
@@ -54,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.cart);
         setSupportActionBar(toolbar);
         toolbar.bringToFront();

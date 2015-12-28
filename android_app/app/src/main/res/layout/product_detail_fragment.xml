@@ -47,7 +47,7 @@
         android:background="#40d47e"
         android:fontFamily="sans-serif-medium"
         android:padding="8dp"
-        android:text="Add"
+        android:text="Add To Cart"
         android:textColor="#ffffff"
         android:textSize="16dp" />
 
