@@ -1,6 +1,7 @@
 package com.example.chi6rag.mykart.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,15 @@ public class LineItemListAdapter extends BaseAdapter {
     private static final String PRICE = "Price Per Item: ";
     private final Context context;
     private final List<LineItem> lineItems;
+    private final String host;
+    private final Object port;
 
     public LineItemListAdapter(Context context, List<LineItem> lineItems) {
         this.context = context;
         this.lineItems = lineItems;
+        Resources resources = context.getResources();
+        this.host = resources.getString(R.string.host);
+        this.port = resources.getString(R.string.port);
     }
 
     @Override
@@ -64,7 +70,7 @@ public class LineItemListAdapter extends BaseAdapter {
         TextView cartLineItemPrice = ((TextView) view.findViewById(R.id.cart_line_item_price));
 
         Picasso.with(this.context)
-                .load(variant.images.get(0).smallUrl)
+                .load(host + port + variant.images.get(0).smallUrl)
                 .placeholder(R.drawable.line_item_image_placeholder)
                 .into(cartLineItemImage);
 
