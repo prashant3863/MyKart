@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.chi6rag.mykart.async_tasks.AddProductToCartTask;
 import com.example.chi6rag.mykart.async_tasks.Callback;
+import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,9 @@ public class Cart {
         return cartInstance;
     }
 
-    public void addProduct(final Product product) {
+    public void addProduct(final Product product, UIExecutor<LineItem> uiExecutor) {
         if (this.order.isValid()) {
-            executeAddProductToCartTask(product);
+            executeAddProductToCartTask(product, uiExecutor);
         }
     }
 
@@ -36,16 +37,12 @@ public class Cart {
         this.lineItems = new ArrayList<LineItem>();
     }
 
-    private void executeAddProductToCartTask(final Product product) {
-        new AddProductToCartTask(
-                order.number,
-                order.token,
-                product,
+    private void executeAddProductToCartTask(final Product product, UIExecutor<LineItem> uiExecutor) {
+        new AddProductToCartTask(order.number, order.token, product, uiExecutor,
                 new Callback<LineItem>() {
                     @Override
                     public void onSuccess(LineItem lineItem) {
                         cartInstance.addLineItem(lineItem);
-                        popSuccessfullyAddedToCartAlert(lineItem);
                     }
 
                     @Override
@@ -57,12 +54,5 @@ public class Cart {
 
     private void addLineItem(LineItem lineItem) {
         this.lineItems.add(lineItem);
-    }
-
-    private void popSuccessfullyAddedToCartAlert(LineItem lineItem) {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.context);
-        alertBuilder.setTitle("Success")
-                .setMessage("Added " + lineItem.variant.name + " to Cart")
-                .show();
     }
 }
