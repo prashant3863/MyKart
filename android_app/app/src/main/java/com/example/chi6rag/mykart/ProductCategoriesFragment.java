@@ -1,6 +1,7 @@
 package com.example.chi6rag.mykart;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,8 +25,9 @@ public class ProductCategoriesFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(getContext());
+        Activity activity = getActivity();
         try {
             listener = (OnProductCategoryClickListener) activity;
         } catch (ClassCastException e) {
