@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -69,8 +70,27 @@ public class ProductActivity extends AppCompatActivity implements
         switch(item.getItemId()) {
             case android.R.id.home:
                 finish();
-            default:
+            case R.id.action_home:
+                finish();
+            case R.id.action_cart:
+                handleCartActionItemClick();
         }
         return false;
+    }
+
+    private void handleCartActionItemClick() {
+        Order.getCurrentInstance(this, new Callback<Order>() {
+            @Override
+            public void onSuccess(Order fetchedOrder) {
+                Intent intent = new Intent(ProductActivity.this, CartActivity.class);
+                intent.putExtra(Order.TAG, fetchedOrder);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("chi6rag", "show internet exception alert");
+            }
+        });
     }
 }

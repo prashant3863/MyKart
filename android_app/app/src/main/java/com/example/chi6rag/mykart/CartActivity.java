@@ -49,7 +49,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
+        menuInflater.inflate(R.menu.cart, menu);
         return true;
     }
 
@@ -65,6 +65,8 @@ public class CartActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                finish();
+            case R.id.action_home:
                 finish();
             default:
         }
