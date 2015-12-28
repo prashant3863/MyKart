@@ -52,11 +52,7 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         toolbar.bringToFront();
 
-        LandingFragment landingFragment = new LandingFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_main_layout, landingFragment)
-                .commit();
+        showLandingScreen();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         mNavigationDrawer = (LinearLayout) findViewById(R.id.navigation_drawer);
@@ -116,6 +112,14 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
+    private void showLandingScreen() {
+        LandingFragment landingFragment = new LandingFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_layout, landingFragment)
+                .commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -135,12 +139,14 @@ public class MainActivity extends AppCompatActivity implements
         }
         switch (item.getItemId()) {
             case R.id.action_cart:
-                handleAddToCartClick();
+                handleCartActionItemClick();
+            case R.id.action_home:
+                showLandingScreen();
         }
         return false;
     }
 
-    private void handleAddToCartClick() {
+    private void handleCartActionItemClick() {
         Order.getCurrentInstance(this, new Callback<Order>() {
             @Override
             public void onSuccess(Order fetchedOrder) {

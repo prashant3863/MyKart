@@ -1,5 +1,6 @@
 package com.example.chi6rag.mykart.models;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -44,6 +45,7 @@ public class Cart {
                     @Override
                     public void onSuccess(LineItem lineItem) {
                         cartInstance.addLineItem(lineItem);
+                        popSuccessfullyAddedToCartAlert(lineItem);
                     }
 
                     @Override
@@ -55,5 +57,12 @@ public class Cart {
 
     private void addLineItem(LineItem lineItem) {
         this.lineItems.add(lineItem);
+    }
+
+    private void popSuccessfullyAddedToCartAlert(LineItem lineItem) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.context);
+        alertBuilder.setTitle("Success")
+                .setMessage("Added " + lineItem.variant.name + " to Cart")
+                .show();
     }
 }
