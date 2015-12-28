@@ -1,6 +1,5 @@
 package com.example.chi6rag.mykart.models;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 

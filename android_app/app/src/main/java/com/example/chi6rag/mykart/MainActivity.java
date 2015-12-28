@@ -231,8 +231,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddToCartButtonClick(final Product product) {
-        final ProgressDialog progressDialog = buildAddingProductToCartProgressDialog();
-        final UIExecutor<LineItem> uiExecutor = buildProgressDialogExecutor(progressDialog);
+        AddToCartProgressDialog dialog = new AddToCartProgressDialog(this);
+        final ProgressDialog progressDialog = dialog.build();
+        final UIExecutor<LineItem> uiExecutor = dialog.buildExecutor(progressDialog);
 
         Order.getCurrentInstance(this, new Callback<Order>() {
             @Override
@@ -246,33 +247,6 @@ public class MainActivity extends AppCompatActivity implements
 
             }
         });
-    }
-
-    @NonNull
-    private UIExecutor<LineItem> buildProgressDialogExecutor(final ProgressDialog progressDialog) {
-        return new UIExecutor<LineItem>() {
-            @Override
-            public void onPreExecute() {
-                progressDialog.show();
-            }
-
-            @Override
-            public void onPostExecute(LineItem lineItem) {
-                progressDialog.hide();
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertBuilder.setTitle("Success")
-                        .setMessage("Added " + lineItem.variant.name + " to Cart")
-                        .show();
-            }
-        };
-    }
-
-    @NonNull
-    private ProgressDialog buildAddingProductToCartProgressDialog() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please Wait");
-        progressDialog.setMessage("Adding Product To Cart");
-        return progressDialog;
     }
 
     private void handleProductCategoryClickForLandscapeMode(ProductsFragment productsFragment) {
