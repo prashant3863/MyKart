@@ -17,3 +17,4 @@
 #}
 
 -dontwarn com.squareup.okhttp.**
+-injars libs/mockito-all-1.10.19.jar
