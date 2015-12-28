@@ -144,8 +144,10 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_cart:
                 handleCartActionItemClick();
+                break;
             case R.id.action_home:
                 showLandingScreen();
+                break;
         }
         return false;
     }

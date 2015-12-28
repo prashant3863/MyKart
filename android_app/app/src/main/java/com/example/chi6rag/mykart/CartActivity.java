@@ -66,8 +66,10 @@ public class CartActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
             case R.id.action_home:
                 finish();
+                break;
             default:
         }
         return false;

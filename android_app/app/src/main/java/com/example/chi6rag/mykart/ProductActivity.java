@@ -77,10 +77,13 @@ public class ProductActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
             case R.id.action_home:
                 finish();
+                break;
             case R.id.action_cart:
                 handleCartActionItemClick();
+                break;
         }
         return false;
     }
