@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.example.chi6rag.mykart.async_tasks.Callback;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
 import com.example.chi6rag.mykart.network.ConnectionDetector;
 import com.google.gson.annotations.SerializedName;
@@ -34,15 +34,15 @@ public class Order implements Parcelable {
     @SerializedName("ship_address")
     String shipAddress;
 
-    public static void getCurrentInstance(final Context context, final Callback<Order> orderCallback) {
+    public static void getCurrentInstance(final Context context, final StatusCallback<Order> orderStatusCallback) {
         String orderToken = fetchCurrentOrderToken(context);
         String orderNumber = fetchCurrentOrderNumber(context);
 
         if (orderNumber == null && orderToken == null) {
-            if (cannotCreateNewOrder(context, orderCallback)) return;
-            createNewOrder(context, orderCallback);
+            if (cannotCreateNewOrder(context, orderStatusCallback)) return;
+            createNewOrder(context, orderStatusCallback);
         } else {
-            orderCallback.onSuccess(new Order(orderNumber, orderToken));
+            orderStatusCallback.onSuccess(new Order(orderNumber, orderToken));
         }
     }
 
@@ -50,8 +50,8 @@ public class Order implements Parcelable {
         return this.number != null && this.token != null;
     }
 
-    private static void createNewOrder(final Context context, Callback<Order> orderCallback) {
-        new CreateOrderTask(new Callback<Order>() {
+    private static void createNewOrder(final Context context, StatusCallback<Order> orderStatusCallback) {
+        new CreateOrderTask(new StatusCallback<Order>() {
             @Override
             public void onSuccess(Order order) {
                 saveOrderTokenToSharedPreferences(context, order);
@@ -62,13 +62,13 @@ public class Order implements Parcelable {
             public void onFailure() {
                 Log.d("chi6rag", "creation of order failed");
             }
-        }, orderCallback).execute();
+        }, orderStatusCallback).execute();
     }
 
-    private static boolean cannotCreateNewOrder(Context context, Callback<Order> orderCallback) {
+    private static boolean cannotCreateNewOrder(Context context, StatusCallback<Order> orderStatusCallback) {
         ConnectionDetector connectionDetector = new ConnectionDetector(context);
         if (connectionDetector.isNotConnectedToInternet()) {
-            orderCallback.onFailure();
+            orderStatusCallback.onFailure();
             return true;
         }
         return false;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.chi6rag.mykart.async_tasks.AddProductToCartTask;
-import com.example.chi6rag.mykart.async_tasks.Callback;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class Cart {
 
     private void executeAddProductToCartTask(final Product product, UIExecutor<LineItem> uiExecutor) {
         new AddProductToCartTask(order.number, order.token, product, uiExecutor,
-                new Callback<LineItem>() {
+                new StatusCallback<LineItem>() {
                     @Override
                     public void onSuccess(LineItem lineItem) {
                         cartInstance.addLineItem(lineItem);

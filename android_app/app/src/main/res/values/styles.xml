@@ -121,4 +121,17 @@
         <item name="android:layout_below">@id/cart_line_item_name</item>
         <item name="android:layout_marginTop">9.5dp</item>
     </style>
+    <style name="cart_empty_text_view">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="address_billing_title">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:padding">16dp</item>
+    </style>
 </resources>

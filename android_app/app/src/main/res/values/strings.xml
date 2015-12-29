@@ -10,4 +10,5 @@
     <string name="indian_currency">Rs.</string>
     <string name="cart">Cart</string>
     <string name="checkout">Checkout</string>
+    <string name="your_cart_is_empty">Your cart is empty!</string>
 </resources>

@@ -3,8 +3,6 @@ package com.example.chi6rag.mykart.async_tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.chi6rag.mykart.models.Order;
@@ -20,22 +18,17 @@ import java.net.URL;
 
 public class FetchOrderDetailsForCartTask extends AsyncTask<Void, Void, Order> {
     private final Order order;
-    private final Callback<Order> orderCallback;
+    private final StatusCallback<Order> mOrderStatusCallback;
     private final ProgressBar progressBar;
-    private final ListView cartLineItemsList;
-    private final Button cartCheckoutButton;
     private Context context;
     private ConnectionDetector connectionDetector;
 
     public FetchOrderDetailsForCartTask(Context context, Order order, ProgressBar progressBar,
-                                        ListView cartLineItemsList, Button cartCheckoutButton,
-                                        Callback<Order> orderCallback) {
+                                        StatusCallback<Order> orderStatusCallback) {
         this.context = context;
         this.order = order;
         this.progressBar = progressBar;
-        this.cartLineItemsList = cartLineItemsList;
-        this.cartCheckoutButton = cartCheckoutButton;
-        this.orderCallback = orderCallback;
+        this.mOrderStatusCallback = orderStatusCallback;
         this.connectionDetector = new ConnectionDetector(this.context);
     }
 
@@ -67,20 +60,10 @@ public class FetchOrderDetailsForCartTask extends AsyncTask<Void, Void, Order> {
         if (order.isValid() && (order.lineItems != null)) {
             cancelProgressBarAnimation();
             removeProgressBar();
-            showCheckoutButton();
-            showLineItemsList();
-            this.orderCallback.onSuccess(order);
+            this.mOrderStatusCallback.onSuccess(order);
         } else {
-            this.orderCallback.onFailure();
+            this.mOrderStatusCallback.onFailure();
         }
-    }
-
-    private void showCheckoutButton() {
-        this.cartCheckoutButton.setVisibility(Button.VISIBLE);
-    }
-
-    private void showLineItemsList() {
-        this.cartLineItemsList.setVisibility(ListView.VISIBLE);
     }
 
     private void removeProgressBar() {

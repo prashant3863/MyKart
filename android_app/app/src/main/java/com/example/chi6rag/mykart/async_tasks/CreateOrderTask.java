@@ -14,10 +14,10 @@ import java.net.URL;
 
 public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
     private static final String POST = "POST";
-    private final Callback[] callbacks;
+    private final StatusCallback[] mStatusCallbacks;
 
-    public CreateOrderTask(Callback<Order>... callbacks) {
-        this.callbacks = callbacks;
+    public CreateOrderTask(StatusCallback<Order>... statusCallbacks) {
+        this.mStatusCallbacks = statusCallbacks;
     }
 
     @Override
@@ -38,11 +38,11 @@ public class CreateOrderTask extends AsyncTask<Void, Void, Order> {
 
     @Override
     protected void onPostExecute(Order order) {
-        for(Callback callback : this.callbacks) {
+        for(StatusCallback statusCallback : this.mStatusCallbacks) {
             if (order != null) {
-                callback.onSuccess(order);
+                statusCallback.onSuccess(order);
             } else {
-                callback.onFailure();
+                statusCallback.onFailure();
             }
         }
     }

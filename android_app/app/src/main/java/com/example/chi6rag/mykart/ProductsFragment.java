@@ -61,6 +61,7 @@ public class ProductsFragment extends Fragment {
                         listener.onProductClick(view, product);
                     }
                 }));
+
         setActionBarTitleAs(productCategory.name);
         return view;
     }

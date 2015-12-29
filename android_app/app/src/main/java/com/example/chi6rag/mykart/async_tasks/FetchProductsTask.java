@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.example.chi6rag.mykart.ProductsListTouchListener;
 import com.example.chi6rag.mykart.R;
 import com.example.chi6rag.mykart.adapters.ProductListAdapter;
+import com.example.chi6rag.mykart.models.Product;
 import com.example.chi6rag.mykart.network.ProductsResource;
 import com.google.gson.Gson;
 
@@ -29,11 +31,13 @@ public class FetchProductsTask extends AsyncTask<Integer, Void, ProductsResource
     private final RelativeLayout progressContainer;
     private final ProgressBar progressBar;
     private final RecyclerView productsList;
+    private final Context context;
 
     private ProductListAdapter adapter;
 
     public FetchProductsTask(Context context, ProductListAdapter adapter, RelativeLayout progressContainer,
                              View productsList) {
+        this.context = context;
         Resources resources = context.getResources();
 
         host = resources.getString(R.string.host);

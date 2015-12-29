@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.chi6rag.mykart.async_tasks.Callback;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.LineItem;
@@ -51,7 +51,7 @@ public class ProductActivity extends AppCompatActivity implements
         final ProgressDialog progressDialog = dialog.build();
         final UIExecutor<LineItem> uiExecutor = dialog.buildExecutor(progressDialog);
 
-        Order.getCurrentInstance(this, new Callback<Order>() {
+        Order.getCurrentInstance(this, new StatusCallback<Order>() {
             @Override
             public void onSuccess(Order fetchedOrder) {
                 Cart cart = Cart.getInstance(ProductActivity.this, fetchedOrder);
@@ -89,7 +89,7 @@ public class ProductActivity extends AppCompatActivity implements
     }
 
     private void handleCartActionItemClick() {
-        Order.getCurrentInstance(this, new Callback<Order>() {
+        Order.getCurrentInstance(this, new StatusCallback<Order>() {
             @Override
             public void onSuccess(Order fetchedOrder) {
                 Intent intent = new Intent(ProductActivity.this, CartActivity.class);

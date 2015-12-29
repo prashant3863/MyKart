@@ -18,19 +18,19 @@ public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
     private final Product product;
     private final String orderNumber;
     private final String orderToken;
-    private final Callback callback;
+    private final StatusCallback mStatusCallback;
     private final UIExecutor<LineItem> uiExecutor;
 
     public AddProductToCartTask(String orderNumber,
                                 String orderToken,
                                 Product product,
                                 UIExecutor<LineItem> uiExecutor,
-                                Callback<LineItem> callback) {
+                                StatusCallback<LineItem> statusCallback) {
         this.orderNumber = orderNumber;
         this.orderToken = orderToken;
         this.product = product;
         this.uiExecutor = uiExecutor;
-        this.callback = callback;
+        this.mStatusCallback = statusCallback;
     }
 
     @Override
@@ -59,9 +59,9 @@ public class AddProductToCartTask extends AsyncTask<Void, Void, LineItem> {
     protected void onPostExecute(LineItem lineItem) {
         if (lineItem != null) {
             uiExecutor.onPostExecute(lineItem);
-            this.callback.onSuccess(lineItem);
+            this.mStatusCallback.onSuccess(lineItem);
         } else {
-            this.callback.onFailure();
+            this.mStatusCallback.onFailure();
         }
     }
 

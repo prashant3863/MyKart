@@ -1,7 +1,7 @@
 package com.example.chi6rag.mykart.async_tasks;
 
-public interface Callback<T> {
+public interface ExtensibleStatusCallback<T> {
     void onSuccess(T t);
 
-    void onFailure();
+    void onFailure(T t);
 }

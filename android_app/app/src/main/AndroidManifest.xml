@@ -22,6 +22,8 @@
         <activity android:name=".ProductActivity"/>
         <activity android:name=".CartActivity">
         </activity>
+        <activity android:name=".CheckoutActivity">
+        </activity>
     </application>
 
 </manifest>
