@@ -13,13 +13,14 @@ import com.example.chi6rag.mykart.network.Errors;
 import com.example.chi6rag.mykart.network.ErrorsResource;
 
 public class CheckoutActivity extends AppCompatActivity {
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        final ProgressBar progressBar = ((ProgressBar) findViewById(R.id.checkout_progress_loader));
+        progressBar = ((ProgressBar) findViewById(R.id.checkout_progress_loader));
 
         final Order order = getIntent().getParcelableExtra(Order.TAG);
         new AdvanceOrderStateTask(order, new UIExecutor<Object>() {
@@ -30,20 +31,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
             @Override
             public void onPostExecute(Object object) {
-                stopLoaderAnimation(progressBar);
-                removeLoader(progressBar);
-            }
-
-            private void startLoaderAnimation() {
-                progressBar.animate().start();
-            }
-
-            private void removeLoader(ProgressBar progressBar) {
-                ((ViewGroup) progressBar.getParent()).removeView(progressBar);
-            }
-
-            private void stopLoaderAnimation(ProgressBar progressBar) {
-                progressBar.animate().cancel();
+                stopLoaderAnimation();
+                removeLoader();
             }
         }, new ExtensibleStatusCallback<Object>() {
             @Override
@@ -59,6 +48,19 @@ public class CheckoutActivity extends AppCompatActivity {
                 }
             }
         }).execute();
+    }
+
+
+    private void startLoaderAnimation() {
+        progressBar.animate().start();
+    }
+
+    private void removeLoader() {
+        ((ViewGroup) this.progressBar.getParent()).removeView(progressBar);
+    }
+
+    private void stopLoaderAnimation() {
+        this.progressBar.animate().cancel();
     }
 
     private void promptForAddress(Order order) {

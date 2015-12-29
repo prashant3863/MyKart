@@ -134,4 +134,12 @@
         <item name="android:textSize">30sp</item>
         <item name="android:padding">16dp</item>
     </style>
+    <style name="address_edit_text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

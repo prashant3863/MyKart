@@ -1,163 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+        android:background="#FFFFFF">
 
         <TextView
             android:id="@+id/address_billing_title"
-            android:text="Billing Address"
-            android:textAlignment="center"
-            android:fontFamily="sans-serif-thin"
             style="@style/address_billing_title"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            android:layout_marginTop="?attr/actionBarSize"
+            android:fontFamily="sans-serif-light"
+            android:text="Billing Address"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/address_firstname_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
             android:text="What's your First Name"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:hint="Chirag"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="Chirag"
+            android:inputType="textPersonName"/>
 
         <TextView
             android:id="@+id/address_lastname_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="What's your Last Name"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="Aggarwal"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="Aggarwal"
+            android:inputType="textPersonName"/>
 
         <TextView
             android:id="@+id/address_billing_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="What's your Billing Address"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="textPostalAddress"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="House No. 24, QD Block"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="House No. 24, QD Block"
+            android:inputType="textPostalAddress"/>
 
         <TextView
             android:id="@+id/address_city_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="Which city do you live in?"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="textPostalAddress"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="New Delhi"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="New Delhi"
+            android:inputType="textPostalAddress"/>
 
         <TextView
             android:id="@+id/address_phone_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="Which phone number can we contact you on?"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="phone"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="+91 999 999 9999"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="+91 999 999 9999"
+            android:inputType="phone"/>
 
         <TextView
             android:id="@+id/address_zipcode_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="What is the ZipCode of your city?"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="numberSigned"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="110034"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="110034"
+            android:inputType="numberSigned"/>
 
         <TextView
             android:id="@+id/address_state_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="Which state do you live in?"/>
 
         <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="numberSigned"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:hint="Delhi"/>
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="Delhi"
+            android:inputType="textPostalAddress"/>
 
         <TextView
             android:id="@+id/address_country_label"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="Which country do you belong to?"/>
 
         <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="12dp"
-            android:textSize="16sp"
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
             android:text="India"/>
 
     </LinearLayout>

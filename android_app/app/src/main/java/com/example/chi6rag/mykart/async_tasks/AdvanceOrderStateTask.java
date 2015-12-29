@@ -58,11 +58,11 @@ public class AdvanceOrderStateTask extends AsyncTask<Void, Void, Object> {
 
     @Override
     protected void onPostExecute(Object object) {
+        this.uiExecutor.onPostExecute(object);
         if (object instanceof Order) {
-            this.uiExecutor.onPostExecute(((Order) object));
-            this.extensibleStatusCallback.onSuccess(((Order) object));
+            this.extensibleStatusCallback.onSuccess(object);
         } else if (object instanceof ErrorsResource) {
-            this.extensibleStatusCallback.onFailure(((ErrorsResource) object));
+            this.extensibleStatusCallback.onFailure(object);
         }
     }
 
