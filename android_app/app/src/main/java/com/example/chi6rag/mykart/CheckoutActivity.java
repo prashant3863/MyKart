@@ -8,11 +8,13 @@ import android.widget.ProgressBar;
 import com.example.chi6rag.mykart.async_tasks.AdvanceOrderStateTask;
 import com.example.chi6rag.mykart.async_tasks.ExtensibleStatusCallback;
 import com.example.chi6rag.mykart.async_tasks.UIExecutor;
+import com.example.chi6rag.mykart.models.Address;
 import com.example.chi6rag.mykart.models.Order;
 import com.example.chi6rag.mykart.network.Errors;
 import com.example.chi6rag.mykart.network.ErrorsResource;
 
-public class CheckoutActivity extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity implements
+        AddressFragment.OnNextButtonClickListener {
     private ProgressBar progressBar;
 
     @Override
@@ -37,14 +39,14 @@ public class CheckoutActivity extends AppCompatActivity {
         }, new ExtensibleStatusCallback<Object>() {
             @Override
             public void onSuccess(Object order) {
-                promptForAddress(((Order) order));
+                promptForAddress();
             }
 
             @Override
             public void onFailure(Object errorResource) {
                 Errors errors = ((ErrorsResource) errorResource).errors;
                 if (errors.containsErrorLike("address")) {
-                    promptForAddress(order);
+                    promptForAddress();
                 }
             }
         }).execute();
@@ -63,9 +65,8 @@ public class CheckoutActivity extends AppCompatActivity {
         this.progressBar.animate().cancel();
     }
 
-    private void promptForAddress(Order order) {
+    private void promptForAddress() {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Order.TAG, order);
 
         AddressFragment addressFragment = new AddressFragment();
         addressFragment.setArguments(bundle);
@@ -74,5 +75,9 @@ public class CheckoutActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.activity_checkout_container, addressFragment)
                 .commit();
+    }
+
+    @Override
+    public void onNextButtonClick(Address address) {
     }
 }

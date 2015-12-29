@@ -29,6 +29,7 @@
             android:text="What's your First Name"/>
 
         <EditText
+            android:id="@+id/address_edit_first_name"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="Chirag"
@@ -43,6 +44,7 @@
             android:text="What's your Last Name"/>
 
         <EditText
+            android:id="@+id/address_edit_last_name"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="Aggarwal"
@@ -57,6 +59,7 @@
             android:text="What's your Billing Address"/>
 
         <EditText
+            android:id="@+id/address_edit_billing_address"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="House No. 24, QD Block"
@@ -71,6 +74,7 @@
             android:text="Which city do you live in?"/>
 
         <EditText
+            android:id="@+id/address_edit_city"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="New Delhi"
@@ -85,6 +89,7 @@
             android:text="Which phone number can we contact you on?"/>
 
         <EditText
+            android:id="@+id/address_edit_mobile_number"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="+91 999 999 9999"
@@ -99,6 +104,7 @@
             android:text="What is the ZipCode of your city?"/>
 
         <EditText
+            android:id="@+id/address_edit_zip_code"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="110034"
@@ -113,6 +119,7 @@
             android:text="Which state do you live in?"/>
 
         <EditText
+            android:id="@+id/address_edit_state"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:hint="Delhi"
@@ -127,9 +134,19 @@
             android:text="Which country do you belong to?"/>
 
         <TextView
+            android:id="@+id/address_edit_country"
             style="@style/address_edit_text"
             android:fontFamily="sans-serif-light"
             android:text="India"/>
+
+        <Button
+            android:id="@+id/address_next_button"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/buttonGreen"
+            android:textColor="@color/buttonWhite"
+            android:text="Next"
+            />
 
     </LinearLayout>
 </ScrollView>
