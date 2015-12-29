@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.chi6rag.mykart.R;
@@ -20,6 +21,7 @@ public class LineItemListAdapter extends BaseAdapter {
 
     private static final String QUANTITY = "Quantity: ";
     private static final String PRICE = "Price Per Item: ";
+    private static final Integer FIVE = 5;
     private final Context context;
     private final List<LineItem> lineItems;
     private final String host;
@@ -66,8 +68,12 @@ public class LineItemListAdapter extends BaseAdapter {
     private void populateDataInView(LineItem lineItem, Variant variant, View view) {
         ImageView cartLineItemImage = ((ImageView) view.findViewById(R.id.cart_line_item_image));
         TextView cartLineItemName = (TextView) view.findViewById(R.id.cart_line_item_name);
-        TextView cartLineItemQuantity = ((TextView) view.findViewById(R.id.cart_line_item_quantity));
         TextView cartLineItemPrice = ((TextView) view.findViewById(R.id.cart_line_item_price));
+        Spinner cartLineItemQuantitySpinner = (Spinner) view.findViewById(R.id
+                .cart_line_item_quantity_spinner);
+
+        CartLineItemQuantitySpinnerAdapter adapter =
+                new CartLineItemQuantitySpinnerAdapter(this.context, lineItem.quantity, FIVE);
 
         Picasso.with(this.context)
                 .load(host + port + variant.images.get(0).smallUrl)
@@ -75,7 +81,8 @@ public class LineItemListAdapter extends BaseAdapter {
                 .into(cartLineItemImage);
 
         cartLineItemName.setText(variant.name);
-        cartLineItemQuantity.setText(QUANTITY + lineItem.quantity);
         cartLineItemPrice.setText(PRICE + variant.displayPrice);
+        cartLineItemQuantitySpinner.setAdapter(adapter);
+        cartLineItemQuantitySpinner.setSelection(adapter.positionForCurrentQuantity());
     }
 }

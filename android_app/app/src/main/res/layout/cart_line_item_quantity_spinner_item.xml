@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cart_line_item_quantity_spinner_text"
+    style="@style/cart_line_item_quantity_spinner_text"
+    android:textAlignment="center" />
