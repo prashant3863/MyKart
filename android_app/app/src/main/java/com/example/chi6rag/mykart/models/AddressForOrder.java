@@ -17,6 +17,7 @@ public class AddressForOrder {
     private static final String ORDER_KEY = "\"order\":";
     private static final String BILL_ADDRESS_ATTRIBUTES_KEY = "\"bill_address_attributes\":";
     private static final String SHIP_ADDRESS_ATTRIBUTES_KEY = "\"ship_address_attributes\":";
+    private static final String EMAIL_ADDRESS_KEY = "\"email\":";
 
     String email;
     String firstname;
@@ -45,9 +46,9 @@ public class AddressForOrder {
         String jsonString = BRACKET_START +
                 ORDER_KEY + BRACKET_START +
                 BILL_ADDRESS_ATTRIBUTES_KEY + addressAttributes() + COMMA +
-                SHIP_ADDRESS_ATTRIBUTES_KEY + addressAttributes() +
-                BRACKET_END +
-                BRACKET_END;
+                SHIP_ADDRESS_ATTRIBUTES_KEY + addressAttributes() + COMMA +
+                EMAIL_ADDRESS_KEY + addDoubleQuotesAtEnds(this.email) +
+                BRACKET_END + BRACKET_END;
         return jsonString;
     }
 
