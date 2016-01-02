@@ -4,6 +4,7 @@
     style="@style/product_method_list_item_text"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="start"
+    android:textAlignment="textStart"
     android:fontFamily="sans-serif-light"
-    android:textAlignment="center"
     tools:text="Chirag"/>

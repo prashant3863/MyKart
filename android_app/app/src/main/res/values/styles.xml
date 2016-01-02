@@ -152,5 +152,17 @@
         <item name="android:textSize">26sp</item>
     </style>
 
-    <style name="product_method_list_item_text" parent="@style/product_category_list_item_text"></style>
+    <style name="product_method_list_item_text" parent="@style/product_category_list_item_text">
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+    </style>
+    <style name="payment_method_selection_helper_text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">?attr/actionBarSize</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/helperTextLightGrey</item>
+    </style>
 </resources>
