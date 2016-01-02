@@ -17,6 +17,7 @@ public class Order implements Parcelable {
     public static final String TAG = "com.example.chi6rag.mykart.models.ORDER_SHARED_PREFERENCES_TAG";
     public static final String CURRENT_NUMBER_KEY = "com.example.chi6rag.mykart.models.ORDER_CURRENT_KEY";
     public static final String CURRENT_TOKEN = "com.example.chi6rag.mykart.models.ORDER_CURRENT_TOKEN";
+    public static final String STATUS = "com.example.chi6rag.mykart.models.ORDER_CURRENT_STATUS";
 
     public String number;
     public String token;
@@ -75,34 +76,10 @@ public class Order implements Parcelable {
         return false;
     }
 
-    private static void saveOrderTokenToSharedPreferences(Context context, Order order) {
-        context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
-                .putString(Order.CURRENT_TOKEN, order.token)
-                .commit();
-    }
-
-    private static void saveOrderNumberToSharedPreferences(Context context, Order order) {
-        context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
-                .putString(Order.CURRENT_NUMBER_KEY, order.number)
-                .commit();
-    }
-
     public Order(String number, String token, String state) {
         this.number = number;
         this.token = token;
         this.state = state;
-    }
-
-    private static String fetchCurrentOrderToken(Context context) {
-        SharedPreferences sharedPreferences = context
-                .getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Order.CURRENT_TOKEN, null);
-    }
-
-    private static String fetchCurrentOrderNumber(Context context) {
-        SharedPreferences sharedPreferences = context
-                .getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Order.CURRENT_NUMBER_KEY, null);
     }
 
     @Override
@@ -149,13 +126,44 @@ public class Order implements Parcelable {
         }
     };
 
-    public void updateStateByComparingWith(Order that) {
-        if(that == null) return;
+    public void updateStateByComparingWith(Order that, Context context) {
+        if (that == null) return;
         this.state = that.state;
+        saveOrderStatusToSharedPreferences(context, that);
     }
 
     public boolean doesNotHaveSameStateAs(Order that) {
         if (this.state != that.state) return true;
         return false;
+    }
+
+    private static void saveOrderStatusToSharedPreferences(Context context, Order order) {
+        context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
+                .putString(Order.STATUS, order.state)
+                .commit();
+    }
+
+    private static void saveOrderTokenToSharedPreferences(Context context, Order order) {
+        context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
+                .putString(Order.CURRENT_TOKEN, order.token)
+                .commit();
+    }
+
+    private static void saveOrderNumberToSharedPreferences(Context context, Order order) {
+        context.getSharedPreferences(Order.TAG, Context.MODE_PRIVATE).edit()
+                .putString(Order.CURRENT_NUMBER_KEY, order.number)
+                .commit();
+    }
+
+    private static String fetchCurrentOrderToken(Context context) {
+        SharedPreferences sharedPreferences = context
+                .getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Order.CURRENT_TOKEN, null);
+    }
+
+    private static String fetchCurrentOrderNumber(Context context) {
+        SharedPreferences sharedPreferences = context
+                .getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Order.CURRENT_NUMBER_KEY, null);
     }
 }
