@@ -6,8 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.CreateOrderTask;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.network.ConnectionDetector;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,6 +20,7 @@ public class Order implements Parcelable {
 
     public String number;
     public String token;
+    public String state;
     Integer id;
     String email;
     String currency;
@@ -30,9 +31,9 @@ public class Order implements Parcelable {
     @SerializedName("total_quantity")
     Integer totalQuantity;
     @SerializedName("bill_address")
-    String billAddress;
+    AddressForOrder billAddress;
     @SerializedName("ship_address")
-    String shipAddress;
+    AddressForOrder shipAddress;
 
     public static void getCurrentInstance(final Context context, final StatusCallback<Order> orderStatusCallback) {
         String orderToken = fetchCurrentOrderToken(context);
@@ -42,7 +43,7 @@ public class Order implements Parcelable {
             if (cannotCreateNewOrder(context, orderStatusCallback)) return;
             createNewOrder(context, orderStatusCallback);
         } else {
-            orderStatusCallback.onSuccess(new Order(orderNumber, orderToken));
+            orderStatusCallback.onSuccess(new Order(orderNumber, orderToken, null));
         }
     }
 
@@ -86,9 +87,10 @@ public class Order implements Parcelable {
                 .commit();
     }
 
-    private Order(String number, String token) {
+    public Order(String number, String token, String state) {
         this.number = number;
         this.token = token;
+        this.state = state;
     }
 
     private static String fetchCurrentOrderToken(Context context) {
@@ -115,10 +117,12 @@ public class Order implements Parcelable {
         dest.writeValue(this.id);
         dest.writeString(this.email);
         dest.writeString(this.currency);
-        dest.writeValue(this.totalQuantity);
-        dest.writeString(this.billAddress);
-        dest.writeString(this.shipAddress);
+        dest.writeString(this.state);
         dest.writeTypedList(lineItems);
+        dest.writeString(this.displayTotal);
+        dest.writeValue(this.totalQuantity);
+        dest.writeParcelable(this.billAddress, 0);
+        dest.writeParcelable(this.shipAddress, 0);
     }
 
     protected Order(Parcel in) {
@@ -127,10 +131,12 @@ public class Order implements Parcelable {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.email = in.readString();
         this.currency = in.readString();
-        this.totalQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.billAddress = in.readString();
-        this.shipAddress = in.readString();
+        this.state = in.readString();
         this.lineItems = in.createTypedArrayList(LineItem.CREATOR);
+        this.displayTotal = in.readString();
+        this.totalQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.billAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
+        this.shipAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -142,4 +148,14 @@ public class Order implements Parcelable {
             return new Order[size];
         }
     };
+
+    public void updateStateByComparingWith(Order that) {
+        if(that == null) return;
+        this.state = that.state;
+    }
+
+    public boolean doesNotHaveSameStateAs(Order that) {
+        if (this.state != that.state) return true;
+        return false;
+    }
 }
