@@ -22,8 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.chi6rag.mykart.adapters.NavigationDrawerListAdapter;
-import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.FetchCategoriesTask;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.UIExecutor;
 import com.example.chi6rag.mykart.models.Cart;
 import com.example.chi6rag.mykart.models.LineItem;

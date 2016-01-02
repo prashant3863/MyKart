@@ -6,4 +6,5 @@
     <color name="textDarkGrey">#6B6B6B</color>
     <color name="buttonGreen">#40d47e</color>
     <color name="buttonWhite">#FFFFFF</color>
+    <color name="progressTranslucentWhite">#c8ffffff</color>
 </resources>

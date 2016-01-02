@@ -1,6 +1,9 @@
 package com.example.chi6rag.mykart.models;
 
-public class AddressForOrder {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AddressForOrder implements Parcelable {
     public static final Integer INDIA_COUNTRY_ID = 105;
     public static final Integer DELHI_STATE_ID = 1400;
     private static final String FIRSTNAME_KEY = "\"firstname\":";
@@ -68,4 +71,44 @@ public class AddressForOrder {
     private String addDoubleQuotesAtEnds(String string) {
         return "\"" + string + "\"";
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.email);
+        dest.writeString(this.firstname);
+        dest.writeString(this.lastname);
+        dest.writeString(this.address1);
+        dest.writeString(this.city);
+        dest.writeString(this.phone);
+        dest.writeString(this.zipcode);
+        dest.writeValue(this.stateId);
+        dest.writeValue(this.countryId);
+    }
+
+    protected AddressForOrder(Parcel in) {
+        this.email = in.readString();
+        this.firstname = in.readString();
+        this.lastname = in.readString();
+        this.address1 = in.readString();
+        this.city = in.readString();
+        this.phone = in.readString();
+        this.zipcode = in.readString();
+        this.stateId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.countryId = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Creator<AddressForOrder> CREATOR = new Creator<AddressForOrder>() {
+        public AddressForOrder createFromParcel(Parcel source) {
+            return new AddressForOrder(source);
+        }
+
+        public AddressForOrder[] newArray(int size) {
+            return new AddressForOrder[size];
+        }
+    };
 }

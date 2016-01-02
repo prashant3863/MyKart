@@ -18,6 +18,24 @@
             android:textAlignment="center"/>
 
         <TextView
+            android:id="@+id/address_email_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
+            android:text="What's your Email?"/>
+
+        <EditText
+            android:id="@+id/address_edit_email"
+            style="@style/address_edit_text"
+            android:fontFamily="sans-serif-light"
+            android:hint="chi6rag@gmail.com"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
             android:id="@+id/address_firstname_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

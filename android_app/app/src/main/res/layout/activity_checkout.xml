@@ -9,10 +9,23 @@
 
     <include layout="@layout/toolbar" />
 
-    <ProgressBar
-        android:id="@+id/checkout_progress_loader"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+    <RelativeLayout
+        android:id="@+id/activity_checkout_fragment_container"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/checkout_progress_loader_wrapper"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/progressTranslucentWhite">
+
+        <ProgressBar
+            android:id="@+id/checkout_progress_loader"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

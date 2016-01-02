@@ -15,8 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.chi6rag.mykart.adapters.LineItemListAdapter;
-import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.async_tasks.FetchOrderDetailsForCartTask;
+import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.models.Order;
 
 public class CartActivity extends AppCompatActivity {
