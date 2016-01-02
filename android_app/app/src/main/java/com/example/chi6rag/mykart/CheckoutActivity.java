@@ -20,6 +20,7 @@ import com.example.chi6rag.mykart.view_models.ErrorsViewModel;
 public class CheckoutActivity extends AppCompatActivity implements
         AddressFragment.OnNextButtonClickListener {
     private static final String ADDRESS = "address";
+    private static final String PAYMENT = "payment";
     private static final String CART = "cart";
     private static final String DELIVERY = "delivery";
     private static final String LOG_TAG = "chi6rag";
@@ -37,21 +38,7 @@ public class CheckoutActivity extends AppCompatActivity implements
         progressBarWrapper = ((RelativeLayout) findViewById(R.id.checkout_progress_loader_wrapper));
 
         this.order = getIntent().getParcelableExtra(Order.TAG);
-
-        switch (this.order.state) {
-            case CART:
-                advanceOrderStateToAddress();
-                break;
-            case ADDRESS:
-                promptForAddress();
-                break;
-            case DELIVERY:
-                Log.d(LOG_TAG, "Prompt for choosing shipping!");
-                finish();
-            default:
-                finish();
-                break;
-        }
+        continueCheckoutProcessBasedOnOrderState(this.order);
     }
 
     private void advanceOrderStateToAddress() {
@@ -69,21 +56,23 @@ public class CheckoutActivity extends AppCompatActivity implements
         }, new ExtensibleStatusCallback<Object>() {
             @Override
             public void onSuccess(Object updatedOrder) {
-                Order orderWithUpdatedState = ((Order) updatedOrder);
-                if (order.doesNotHaveSameStateAs(orderWithUpdatedState)) {
-                    order.updateStateByComparingWith(orderWithUpdatedState, CheckoutActivity.this);
-                }
-                promptForAddress();
+                updateOrder((Order) updatedOrder);
+                continueCheckoutProcessBasedOnOrderState(order);
             }
 
             @Override
             public void onFailure(Object errorResource) {
                 Errors errors = ((ErrorsResource) errorResource).errors;
-                if (errors.containsErrorLike("address")) {
-                    promptForAddress();
-                }
+                continueCheckoutProcessBasedOnOrderState(order);
             }
         }).execute();
+    }
+
+    private void updateOrder(Order updatedOrder) {
+        Order orderWithUpdatedState = updatedOrder;
+        if (order.doesNotHaveSameStateAs(orderWithUpdatedState)) {
+            order.updateStateByComparingWith(orderWithUpdatedState, CheckoutActivity.this);
+        }
     }
 
     private void startLoaderAnimation() {
@@ -104,11 +93,7 @@ public class CheckoutActivity extends AppCompatActivity implements
     }
 
     private void promptForAddress() {
-        Bundle bundle = new Bundle();
-
         AddressFragment addressFragment = new AddressFragment();
-        addressFragment.setArguments(bundle);
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_checkout_container, addressFragment)
@@ -131,8 +116,9 @@ public class CheckoutActivity extends AppCompatActivity implements
             }
         }, new ExtensibleStatusCallback<Object>() {
             @Override
-            public void onSuccess(Object o) {
-                advanceOrderStateToShipping();
+            public void onSuccess(Object updatedOrder) {
+                updateOrder((Order) updatedOrder);
+                continueCheckoutProcessBasedOnOrderState(order);
             }
 
             @Override
@@ -140,7 +126,7 @@ public class CheckoutActivity extends AppCompatActivity implements
                 Errors errors = ((ErrorsResource) o).errors;
                 ErrorsViewModel errorsViewModel = new ErrorsViewModel(errors);
 
-                promptForAddress();
+                continueCheckoutProcessBasedOnOrderState(order);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CheckoutActivity.this);
                 alertDialogBuilder
@@ -150,7 +136,65 @@ public class CheckoutActivity extends AppCompatActivity implements
         }).execute();
     }
 
-    private void advanceOrderStateToShipping() {
-        Log.d(LOG_TAG, "State advanced to shipping!");
+    private void advanceOrderStateToPayment(Order order) {
+        new AdvanceOrderStateTask(order, new UIExecutor<Object>() {
+            @Override
+            public void onPreExecute() {
+                showLoaderWrapperInView();
+                startLoaderAnimation();
+            }
+
+            @Override
+            public void onPostExecute(Object o) {
+                stopLoaderAnimation();
+                removeLoaderWrapperFromView();
+            }
+        }, new ExtensibleStatusCallback<Object>() {
+            @Override
+            public void onSuccess(Object order) {
+                continueCheckoutProcessBasedOnOrderState(((Order) order));
+            }
+
+            @Override
+            public void onFailure(Object o) {
+                Log.d(LOG_TAG, "Log Some Error");
+            }
+        }).execute();
+    }
+
+    private void promptForPayment(Order order) {
+        stopLoaderAnimation();
+        removeLoaderWrapperFromView();
+
+        Bundle paymentFragmentBundle = new Bundle();
+        paymentFragmentBundle.putParcelable(Order.TAG, order);
+
+        PaymentFragment paymentFragment = new PaymentFragment();
+        paymentFragment.setArguments(paymentFragmentBundle);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_checkout_container, paymentFragment)
+                .commit();
+    }
+
+    private void continueCheckoutProcessBasedOnOrderState(Order order) {
+        switch (order.state) {
+            case CART:
+                advanceOrderStateToAddress();
+                break;
+            case ADDRESS:
+                promptForAddress();
+                break;
+            case DELIVERY:
+                advanceOrderStateToPayment(order);
+                break;
+            case PAYMENT:
+                promptForPayment(order);
+                break;
+            default:
+                finish();
+                break;
+        }
     }
 }

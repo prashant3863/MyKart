@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/product_method_list_item_text"
+    style="@style/product_method_list_item_text"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fontFamily="sans-serif-light"
+    android:textAlignment="center"
+    tools:text="Chirag"/>

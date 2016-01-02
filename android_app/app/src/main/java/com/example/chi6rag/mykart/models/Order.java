@@ -11,6 +11,7 @@ import com.example.chi6rag.mykart.async_tasks.StatusCallback;
 import com.example.chi6rag.mykart.network.ConnectionDetector;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Parcelable {
@@ -22,6 +23,8 @@ public class Order implements Parcelable {
     public String number;
     public String token;
     public String state;
+    @SerializedName("payment_methods")
+    List<PaymentMethod> paymentMethods;
     Integer id;
     String email;
     String currency;
@@ -82,50 +85,6 @@ public class Order implements Parcelable {
         this.state = state;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.number);
-        dest.writeString(this.token);
-        dest.writeValue(this.id);
-        dest.writeString(this.email);
-        dest.writeString(this.currency);
-        dest.writeString(this.state);
-        dest.writeTypedList(lineItems);
-        dest.writeString(this.displayTotal);
-        dest.writeValue(this.totalQuantity);
-        dest.writeParcelable(this.billAddress, 0);
-        dest.writeParcelable(this.shipAddress, 0);
-    }
-
-    protected Order(Parcel in) {
-        this.number = in.readString();
-        this.token = in.readString();
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.email = in.readString();
-        this.currency = in.readString();
-        this.state = in.readString();
-        this.lineItems = in.createTypedArrayList(LineItem.CREATOR);
-        this.displayTotal = in.readString();
-        this.totalQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.billAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
-        this.shipAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
-    }
-
-    public static final Creator<Order> CREATOR = new Creator<Order>() {
-        public Order createFromParcel(Parcel source) {
-            return new Order(source);
-        }
-
-        public Order[] newArray(int size) {
-            return new Order[size];
-        }
-    };
-
     public void updateStateByComparingWith(Order that, Context context) {
         if (that == null) return;
         this.state = that.state;
@@ -165,5 +124,59 @@ public class Order implements Parcelable {
         SharedPreferences sharedPreferences = context
                 .getSharedPreferences(Order.TAG, Context.MODE_PRIVATE);
         return sharedPreferences.getString(Order.CURRENT_NUMBER_KEY, null);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.number);
+        dest.writeString(this.token);
+        dest.writeString(this.state);
+        dest.writeValue(this.id);
+        dest.writeString(this.email);
+        dest.writeString(this.currency);
+        dest.writeTypedList(lineItems);
+        dest.writeString(this.displayTotal);
+        dest.writeValue(this.totalQuantity);
+        dest.writeParcelable(this.billAddress, 0);
+        dest.writeParcelable(this.shipAddress, 0);
+        dest.writeTypedList(paymentMethods);
+    }
+
+    protected Order(Parcel in) {
+        this.number = in.readString();
+        this.token = in.readString();
+        this.state = in.readString();
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.email = in.readString();
+        this.currency = in.readString();
+        this.lineItems = in.createTypedArrayList(LineItem.CREATOR);
+        this.displayTotal = in.readString();
+        this.totalQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.billAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
+        this.shipAddress = in.readParcelable(AddressForOrder.class.getClassLoader());
+        this.paymentMethods = in.createTypedArrayList(PaymentMethod.CREATOR);
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        public Order createFromParcel(Parcel source) {
+            return new Order(source);
+        }
+
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
+
+    public PaymentMethods paymentMethods() {
+        List<PaymentMethod> selectedPaymentMethods = new ArrayList<>();
+        for(PaymentMethod paymentMethod : paymentMethods) {
+            if(paymentMethod.isCOD()) selectedPaymentMethods.add(paymentMethod);
+        }
+        return new PaymentMethods(selectedPaymentMethods);
     }
 }

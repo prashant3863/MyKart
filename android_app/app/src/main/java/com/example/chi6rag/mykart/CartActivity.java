@@ -101,6 +101,7 @@ public class CartActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
                                 intent.putExtra(Order.TAG, order);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                 startActivity(intent);
                             }
                         });

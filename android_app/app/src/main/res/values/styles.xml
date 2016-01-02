@@ -142,4 +142,15 @@
         <item name="android:padding">16dp</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="product_category_list_item_text">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">#80fbfbfb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="product_method_list_item_text" parent="@style/product_category_list_item_text"></style>
 </resources>

@@ -2,14 +2,7 @@
 <TextView android:id="@+id/product_category_list_item_text"
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          android:layout_marginTop="4dp"
-          android:layout_marginBottom="4dp"
-          android:background="#80fbfbfb"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:minHeight="?android:attr/listPreferredItemHeightSmall"
-          android:padding="16dp"
-          android:textAlignment="center"
-          tools:text="Chirag"
           android:fontFamily="sans-serif-light"
-          android:textSize="26sp" />
+          style="@style/product_category_list_item_text"
+          tools:text="Chirag"
+          android:textAlignment="center" />
